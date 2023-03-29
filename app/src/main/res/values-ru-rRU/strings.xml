@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Appeals older</string>
+    <string name="new_appeal_icon_title">Новые призывы</string>
+    <string name="history_appeal_icon_title">История</string>
+    <string name="profile_icon_title">Экран профиля</string>
+    <string name="phone_number_text">Номер телефона:</string>
+    <string name="district_name_text">Название района:</string>
+    <string name="request_date_text">Дата заказа:</string>
+    <string name="description_name_text">Описание:</string>
+    <string name="allowed_condition_text">Допустимое условие:</string>
+    <string name="allow_button_text">Разрешить апелляцию</string>
+    <string name="fake_phone_number">+998902307762</string>
+    <string name="fake_district_name">Бектемирский район</string>
+    <string name="fake_request_date">03.01.2023</string>
+    <string name="fake_desc">Реконструкция школы №123</string>
+    <string name="detail">деталь</string>
+    <string name="Profile">Профиль</string>
+    <string name="language">Язык</string>
+    <string name="night_mode">Ночной режим</string>
+    <string name="fake_allowed_text">Принял</string>
+    <string name="fake_index">#15</string>
+    <string name="english_text">Английский</string>
+    <string name="russian_text">Русский</string>
+    <string name="uzbek_text">Узбекский</string>
+    <string name="snacbar_text">Заявка принята!</string>
+</resources>

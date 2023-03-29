@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/item_back_color"
+    android:orientation="vertical"
+    tools:context=".InfoItemScreen">
+
+    <ImageView
+        android:id="@+id/back_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/back_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/back_icon"
+        />
+
+
+    <TextView
+        android:id="@+id/phone_text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/phone_number_text"
+        android:textColor="@color/blue_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+
+        />
+
+    <TextView
+        android:id="@+id/number_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/fake_phone_number"
+        android:textSize="16sp"
+        android:textColor="@color/text_def"
+        app:layout_constraintLeft_toLeftOf="@id/phone_text_id"
+        app:layout_constraintTop_toBottomOf="@id/phone_text_id" />
+
+
+    <TextView
+        android:id="@+id/district_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/district_name_text"
+        android:textColor="@color/blue_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/number_text" />
+
+    <TextView
+        android:id="@+id/district_name_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:textColor="@color/text_def"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/fake_district_name"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/request_date_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/request_date_text"
+        android:textColor="@color/blue_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+         />
+
+    <TextView
+        android:id="@+id/request_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55sp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_def"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/fake_request_date"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="@id/request_date_id"
+        app:layout_constraintTop_toBottomOf="@id/request_date_id" />
+
+    <TextView
+        android:id="@+id/desc_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/description_name_text"
+        android:textColor="@color/blue_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/request_date" />
+
+    <TextView
+        android:id="@+id/desc_id"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_def"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/fake_desc"
+        android:textSize="16sp"
+         />
+
+    <TextView
+        android:id="@+id/allowed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/allowed_condition_text"
+        android:textColor="@color/blue_light"
+        android:textSize="18sp"
+        android:layout_marginStart="50dp"
+        android:textStyle="bold"
+       />
+
+    <TextView
+        android:id="@+id/allowed_text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:textColor="@color/text_def"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/fake_allowed_text"
+        android:textSize="16sp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/allow_btn"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:background="@drawable/allow_button_back"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/allow_button_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="90dp"
+        />
+
+
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Appeals older</string>
+    <string name="new_appeal_icon_title">Yangi murojatlar</string>
+    <string name="history_appeal_icon_title">Tekshirilgan murojatlar</string>
+    <string name="profile_icon_title">Profil</string>
+    <string name="phone_number_text">Tel nomer:</string>
+    <string name="district_name_text">Tuman nomi:</string>
+    <string name="request_date_text">Murojat sanasi:</string>
+    <string name="description_name_text">Murojat ilovasi:</string>
+    <string name="allowed_condition_text">Qabul qilinish holati</string>
+    <string name="allow_button_text">Murajaat qabul qilish</string>
+    <string name="fake_phone_number">+998902307762</string>
+    <string name="fake_district_name">Bektemir tumani</string>
+    <string name="fake_request_date">03.01.2023</string>
+    <string name="fake_desc">123-sonli maktab qayta rekonstruksiya qilish</string>
+    <string name="detail">tafsilot</string>
+    <string name="Profile">Profile</string>
+    <string name="language">Til</string>
+    <string name="night_mode">Qorong\'i rejim</string>
+    <string name="fake_allowed_text">Qabul qilindi</string>
+    <string name="fake_index">#15</string>
+    <string name="english_text">Ingliz</string>
+    <string name="russian_text">Rus</string>
+    <string name="uzbek_text">O\'zbek</string>
+    <string name="snacbar_text">Murojat qabul qilingan!</string>
+
+</resources>

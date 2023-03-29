@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Appeal older</string>
+    <string name="new_appeal_icon_title">New Appeals</string>
+    <string name="history_appeal_icon_title">History Appeals</string>
+    <string name="profile_icon_title">Profile Screen</string>
+    <string name="phone_number_text">Phone number:</string>
+    <string name="district_name_text">District name:</string>
+    <string name="request_date_text">Request date:</string>
+    <string name="description_name_text">Description:</string>
+    <string name="allowed_condition_text">Allowed Condition:</string>
+    <string name="allow_button_text">Allow appeal</string>
+    <string name="fake_phone_number">+998902307762</string>
+    <string name="fake_district_name">Bektemir tumani</string>
+    <string name="fake_request_date">03.01.2023</string>
+    <string name="fake_desc">123-sonli maktab...</string>
+    <string name="detail">detail</string>
+    <string name="Profile">Profile</string>
+    <string name="language">Language</string>
+    <string name="night_mode">Night mode</string>
+    <string name="fake_allowed_text">Qabul qilindi</string>
+    <string name="fake_index">#15</string>
+    <string name="english_text">English</string>
+    <string name="russian_text">Russian</string>
+    <string name="uzbek_text">Uzbek</string>
+    <string name="snacbar_text">Appeal was allowed</string>
+
+</resources>

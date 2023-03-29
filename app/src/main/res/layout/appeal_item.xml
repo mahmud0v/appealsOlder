@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:outlineSpotShadowColor="@color/blue"
+        app:cardCornerRadius="13dp"
+        >
+
+        <ImageView
+            android:id="@+id/label_id"
+            android:layout_width="54dp"
+            android:layout_height="38dp"
+            android:paddingEnd="15dp"
+            android:src="@drawable/label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <TextView
+            android:id="@+id/appeal_index_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingEnd="15dp"
+            android:text="@string/fake_index"
+            android:textColor="@color/blue"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/label_id"
+            app:layout_constraintRight_toRightOf="@id/label_id"
+            app:layout_constraintTop_toTopOf="@id/label_id"
+
+            />
+
+        <TextView
+            android:id="@+id/phone_text_id"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/phone_number_text"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/phone_number_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/fake_phone_number"
+            android:textColor="@color/text_def"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@id/phone_text_id"
+            app:layout_constraintTop_toTopOf="@id/phone_text_id" />
+
+        <TextView
+            android:id="@+id/district_text_id"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="65dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/district_name_text"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/district_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/fake_district_name"
+            android:textColor="@color/text_def"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/request_date_id"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="95dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/request_date_text"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/date_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingStart="10dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="95dp"
+            android:layout_marginEnd="70dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/fake_request_date"
+            android:textColor="@color/text_def"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/description_text_id"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="125dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/description_name_text"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingStart="10dp"
+            android:layout_marginTop="125dp"
+            android:layout_marginEnd="15dp"
+            android:paddingEnd="20dp"
+            android:text="@string/fake_desc"
+            android:textColor="@color/text_def"
+            android:textSize="16sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/detail_btn"
+            android:layout_width="65dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"
+            android:background="@drawable/allow_button_back"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/detail"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+
+
+            />
+
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

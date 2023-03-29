@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/newAppealsScreen"
+        android:enabled="true"
+        android:icon="@drawable/appeal_icon"
+        android:title="@string/new_appeal_icon_title" />
+
+    <item
+        android:id="@+id/historyAppealsScreen"
+        android:enabled="true"
+        android:icon="@drawable/history_icon"
+        android:title="@string/history_appeal_icon_title" />
+
+    <item
+        android:id="@+id/profileScreen"
+        android:enabled="true"
+        android:icon="@drawable/profile_icon"
+        android:title="@string/profile_icon_title" />
+
+
+</menu>
