@@ -16,7 +16,7 @@ import com.example.apppealolder.databinding.ActivityMainBinding
 import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var dbHelper: DBHelper
+    private var dbHelper: DBHelper? = null
     private val binding: ActivityMainBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadData(): ArrayList<AppealInfo> {
 
         dbHelper = DBHelper.getInstance(this)
-        val db = dbHelper.readableDatabase
+        val db = dbHelper!!.readableDatabase
         val cursor = db.query(
             "Appeals",
             arrayOf("id", "phone_number", "district", "request_data", "description", "isAllow"),
@@ -146,6 +146,11 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dbHelper!!.close()
     }
 
 

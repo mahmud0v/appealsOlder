@@ -99,5 +99,10 @@ class HistoryAppealScreen : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dbHelper!!.close()
+    }
+
 
 }

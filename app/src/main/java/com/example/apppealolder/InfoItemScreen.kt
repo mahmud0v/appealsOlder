@@ -12,7 +12,7 @@ import com.example.apppealolder.databinding.InfoItemScreenBinding
 
 class InfoItemScreen : AppCompatActivity() {
     private val binding: InfoItemScreenBinding by viewBinding()
-    private lateinit var dbHelper: DBHelper
+    private var dbHelper: DBHelper? = null
     private var data: AppealInfo? = null
     private var firstValue: Int? = null
 
@@ -50,24 +50,17 @@ class InfoItemScreen : AppCompatActivity() {
     }
 
     private fun clickEventAllowed() {
-        val db = dbHelper.writableDatabase
+        val db = dbHelper!!.writableDatabase
         binding.allowBtn.setOnClickListener {
             data!!.isAllow = 1
             val contentValue = ContentValues()
-            contentValue.apply {
-                put("id", data!!.id)
-                put("phone_number", data!!.phone_number)
-                put("district", data!!.district)
-                put("request_data", data!!.request_data)
-                put("description", data!!.description)
-                put("isAllow", data!!.isAllow)
-
-            }
+            contentValue.put("isAllow", data!!.isAllow)
             db.update("Appeals", contentValue, "id=?", arrayOf(data!!.id.toString()))
             binding.allowedTextId.text = isAllowText(data!!.isAllow)
             binding.allowBtn.visibility = View.GONE
 
         }
+
 
     }
 
@@ -99,6 +92,11 @@ class InfoItemScreen : AppCompatActivity() {
         } else {
             binding.backId.setImageResource(R.drawable.night_back_icon)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dbHelper!!.close()
     }
 
 
