@@ -52,10 +52,8 @@ class InfoItemScreen : AppCompatActivity() {
     private fun clickEventAllowed() {
         val db = dbHelper!!.writableDatabase
         binding.allowBtn.setOnClickListener {
-            data!!.isAllow = 1
-            val contentValue = ContentValues()
-            contentValue.put("isAllow", data!!.isAllow)
-            db.update("Appeals", contentValue, "id=?", arrayOf(data!!.id.toString()))
+            val myAsyncTask = AppealsAsyncTask(this)
+            myAsyncTask.execute(data!!.id)
             binding.allowedTextId.text = isAllowText(data!!.isAllow)
             binding.allowBtn.visibility = View.GONE
 
