@@ -1,17 +1,18 @@
 package com.example.apppealolder
 
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.databinding.HistoryAppealScreenBinding
+import java.sql.SQLException
 
 class HistoryAppealScreen : AppCompatActivity() {
     private val binding: HistoryAppealScreenBinding by viewBinding()
     private var adapter: AppealAdapter? = null
     private var dbHelper: DBHelper? = null
-    private var arrayList: ArrayList<AppealInfo>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.history_appeal_screen)
@@ -22,39 +23,11 @@ class HistoryAppealScreen : AppCompatActivity() {
     }
 
     private fun loadData() {
-        adapter = AppealAdapter(LabelWord.label)
-        adapter!!.differ.submitList(getData())
-        binding.historyId.rvNewsId.adapter = adapter
-        binding.historyId.rvNewsId.layoutManager = LinearLayoutManager(this)
+        val historyAsyncTask = HistoryAsyncTask()
+        historyAsyncTask.execute()
+
     }
 
-    private fun getData(): ArrayList<AppealInfo> {
-        dbHelper = DBHelper.getInstance(this)
-        val db = dbHelper?.readableDatabase
-        arrayList = ArrayList()
-        val cursor = db?.query(
-            "Appeals",
-            arrayOf("id", "phone_number", "district", "request_data", "description", "isAllow"),
-            "isAllow=?",
-            arrayOf("1"),
-            null,
-            null,
-            null
-        )
-        while (cursor!!.moveToNext()) {
-            val data = AppealInfo(
-                cursor.getInt(0),
-                cursor.getString(1),
-                cursor.getString(2),
-                cursor.getString(3),
-                cursor.getString(4),
-                cursor.getInt(5),
-            )
-            arrayList!!.add(data)
-        }
-        cursor.close()
-        return arrayList!!
-    }
 
     private fun itemClickEvent() {
         adapter?.onItemClick = {
@@ -99,9 +72,65 @@ class HistoryAppealScreen : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        dbHelper!!.close()
+
+    inner class HistoryAsyncTask : AsyncTask<Unit, Unit, Unit>() {
+        private var list: ArrayList<AppealInfo>? = null
+
+        override fun onPreExecute() {
+            adapter = AppealAdapter(LabelWord.label)
+            list = ArrayList()
+        }
+
+
+        override fun doInBackground(vararg p0: Unit?) {
+            dbHelper = DBHelper.getInstance(this@HistoryAppealScreen)
+            try {
+                val db = dbHelper?.readableDatabase
+                val cursor = db?.query(
+                    "Appeals",
+                    arrayOf(
+                        "id",
+                        "phone_number",
+                        "district",
+                        "request_data",
+                        "description",
+                        "isAllow"
+                    ),
+                    "isAllow=?",
+                    arrayOf("1"),
+                    null,
+                    null,
+                    null
+                )
+                while (cursor!!.moveToNext()) {
+                    val data = AppealInfo(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                    )
+                    list!!.add(data)
+                }
+                cursor.close()
+                dbHelper!!.close()
+
+            } catch (e: SQLException) {
+
+            }
+
+
+        }
+
+        override fun onPostExecute(result: Unit?) {
+            adapter!!.differ.submitList(list)
+            binding.historyId.rvNewsId.adapter = adapter
+            binding.historyId.rvNewsId.layoutManager = LinearLayoutManager(this@HistoryAppealScreen)
+            itemClickEvent()
+        }
+
+
     }
 
 

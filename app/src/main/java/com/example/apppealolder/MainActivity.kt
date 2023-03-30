@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.icu.text.AlphabeticIndex.Bucket.LabelType
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -14,10 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.databinding.ActivityMainBinding
 import java.io.FileOutputStream
+import java.sql.SQLException
 
 class MainActivity : AppCompatActivity() {
-    private var dbHelper: DBHelper? = null
     private val binding: ActivityMainBinding by viewBinding()
+    private var adapter: AppealAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,69 +33,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun loadData(): ArrayList<AppealInfo> {
 
-        dbHelper = DBHelper.getInstance(this)
-        val db = dbHelper!!.readableDatabase
-        val cursor = db.query(
-            "Appeals",
-            arrayOf("id", "phone_number", "district", "request_data", "description", "isAllow"),
-            "isAllow= ?",
-            arrayOf("0"),
-            null,
-            null,
-            null
-        )
-
-        val indexId = cursor.getColumnIndex("id")
-        val indexPhone = cursor.getColumnIndex("phone_number")
-        val indexDistrict = cursor.getColumnIndex("district")
-        val indexRequest = cursor.getColumnIndex("request_data")
-        val indexDescription = cursor.getColumnIndex("description")
-        val indexAllow = cursor.getColumnIndex("isAllow")
-
-        val arrayList = ArrayList<AppealInfo>()
-        while (cursor.moveToNext()) {
-            val data = AppealInfo(
-                cursor.getInt(indexId),
-                cursor.getString(indexPhone),
-                cursor.getString(indexDistrict),
-                cursor.getString(indexRequest),
-                cursor.getString(indexDescription),
-                cursor.getInt(indexAllow)
-
-            )
-
-            arrayList.add(data)
-        }
-        cursor.close()
-        return arrayList
-
+    private fun initRecycler() {
+        adapter = AppealAdapter(LabelWord.pendingAllowed)
+        val myAsyncTask = MyAsyncTask()
+        myAsyncTask.execute()
 
     }
 
-
-    private fun initRecycler() {
-        val adapter = AppealAdapter(LabelWord.pendingAllowed)
-        adapter.differ.submitList(loadData())
-        binding.newsAppealsId.rvNewsId.adapter = adapter
-        binding.newsAppealsId.rvNewsId.layoutManager = LinearLayoutManager(this)
-
-        adapter.onItemClick = {
+    private fun itemClickEvent() {
+        adapter!!.onItemClick = {
             val bundle = Bundle().apply {
                 putSerializable("key", it)
             }
-            val intent = Intent(this, InfoItemScreen::class.java)
+            val intent = Intent(this@MainActivity, InfoItemScreen::class.java)
             intent.putExtra("key", bundle)
             startActivity(intent)
             finish()
 
 
         }
-
-
     }
-
 
     private fun manageBotNavView() {
         binding.botNavId.selectedItemId = R.id.newAppealsScreen
@@ -148,9 +108,76 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        dbHelper!!.close()
+
+    inner class MyAsyncTask() : AsyncTask<Unit, Unit, Boolean>() {
+
+        private var list: ArrayList<AppealInfo>? = null
+
+        override fun onPreExecute() {
+            list = ArrayList()
+        }
+
+        override fun doInBackground(vararg p0: Unit?): Boolean? {
+            val dbHelper = DBHelper.getInstance(this@MainActivity)
+            try {
+                val db = dbHelper.readableDatabase
+                val cursor = db.query(
+                    "Appeals",
+                    arrayOf(
+                        "id",
+                        "phone_number",
+                        "district",
+                        "request_data",
+                        "description",
+                        "isAllow"
+                    ),
+                    "isAllow= ?",
+                    arrayOf("0"),
+                    null,
+                    null,
+                    null
+                )
+
+                val indexId = cursor.getColumnIndex("id")
+                val indexPhone = cursor.getColumnIndex("phone_number")
+                val indexDistrict = cursor.getColumnIndex("district")
+                val indexRequest = cursor.getColumnIndex("request_data")
+                val indexDescription = cursor.getColumnIndex("description")
+                val indexAllow = cursor.getColumnIndex("isAllow")
+
+                while (cursor.moveToNext()) {
+                    val data = AppealInfo(
+                        cursor.getInt(indexId),
+                        cursor.getString(indexPhone),
+                        cursor.getString(indexDistrict),
+                        cursor.getString(indexRequest),
+                        cursor.getString(indexDescription),
+                        cursor.getInt(indexAllow)
+
+                    )
+
+                    list!!.add(data)
+                }
+                cursor.close()
+                dbHelper.close()
+                return true
+
+
+            } catch (e: SQLException) {
+                return false
+            }
+
+
+        }
+
+        override fun onPostExecute(result: Boolean?) {
+            adapter!!.differ.submitList(list)
+            binding.newsAppealsId.rvNewsId.adapter = adapter
+            binding.newsAppealsId.rvNewsId.layoutManager = LinearLayoutManager(this@MainActivity)
+            itemClickEvent()
+
+        }
+
     }
 
 

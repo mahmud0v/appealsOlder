@@ -16,8 +16,8 @@ class AppealsAsyncTask(private val context: Context) : AsyncTask<Int, Unit, Bool
     }
 
     override fun doInBackground(vararg id: Int?): Boolean {
+        val dbHelper = DBHelper.getInstance(context)
         return try {
-            val dbHelper = DBHelper.getInstance(context)
 
             val db = dbHelper.writableDatabase
             db.update(
@@ -29,12 +29,15 @@ class AppealsAsyncTask(private val context: Context) : AsyncTask<Int, Unit, Bool
         }
 
 
+
     }
 
 
     override fun onPostExecute(result: Boolean?) {
         Toast.makeText(context, "$result", Toast.LENGTH_SHORT).show()
     }
+
+
 
 
 }
