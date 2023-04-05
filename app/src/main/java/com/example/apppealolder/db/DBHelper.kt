@@ -1,4 +1,4 @@
-package com.example.apppealolder
+package com.example.apppealolder.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

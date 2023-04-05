@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/item_back_color"
     android:orientation="vertical"
-    tools:context=".InfoItemScreen">
+    tools:context=".screen.InfoItemScreen">
 
     <ImageView
         android:id="@+id/back_id"

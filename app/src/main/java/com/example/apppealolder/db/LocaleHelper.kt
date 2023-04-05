@@ -1,10 +1,7 @@
-package com.example.apppealolder
+package com.example.apppealolder.db
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.os.Build
-import android.preference.PreferenceManager
 import java.util.Locale
 
 class LocaleHelper {

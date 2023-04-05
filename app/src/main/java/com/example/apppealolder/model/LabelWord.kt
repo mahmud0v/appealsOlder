@@ -1,4 +1,4 @@
-package com.example.apppealolder
+package com.example.apppealolder.model
 
 class LabelWord {
 

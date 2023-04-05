@@ -1,25 +1,22 @@
-package com.example.apppealolder
+package com.example.apppealolder.screen
 
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.apppealolder.db.LocaleHelper
+import com.example.apppealolder.R
 import com.example.apppealolder.databinding.ActivityProfileBinding
-import com.example.apppealolder.databinding.DialogScreenBinding
-import java.io.FileOutputStream
 
 class ProfileActivity : AppCompatActivity() {
     private val binding: ActivityProfileBinding by viewBinding()
-    private var modeSharedPref: SharedPreferences? = null
+    private lateinit var modeSharedPref: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -138,17 +135,17 @@ class ProfileActivity : AppCompatActivity() {
         binding.langId.switchId.setOnClickListener {
             if (binding.langId.switchId.isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                modeSharedPref!!.edit().putString("key", "night").apply()
+                modeSharedPref.edit().putString("key", "night").apply()
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                modeSharedPref!!.edit().putString("key", "light").apply()
+                modeSharedPref.edit().putString("key", "light").apply()
 
             }
         }
     }
 
     private fun checkMode() {
-        val mode = modeSharedPref!!.getString("key", "light")
+        val mode = modeSharedPref.getString("key", "light")
         binding.langId.switchId.isChecked = mode != "light"
     }
 

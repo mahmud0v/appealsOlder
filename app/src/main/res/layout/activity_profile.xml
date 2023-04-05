@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:weightSum="15"
     android:background="@color/item_back_color"
-    tools:context=".ProfileActivity">
+    tools:context=".screen.ProfileActivity">
 
 
     <include

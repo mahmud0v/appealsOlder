@@ -1,20 +1,21 @@
-package com.example.apppealolder
+package com.example.apppealolder.screen
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.apppealolder.model.LabelWord
+import com.example.apppealolder.R
 import com.example.apppealolder.databinding.InfoItemScreenBinding
+import com.example.apppealolder.db.AppealsAsyncTask
+import com.example.apppealolder.model.AppealInfo
 
 class InfoItemScreen : AppCompatActivity() {
     private val binding: InfoItemScreenBinding by viewBinding()
-    private var dbHelper: DBHelper? = null
-    private var data: AppealInfo? = null
-    private var firstValue: Int? = null
+    private lateinit var data:AppealInfo
+    private var firstValue: Int = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +31,13 @@ class InfoItemScreen : AppCompatActivity() {
 
 
     private fun loadData() {
-        dbHelper = DBHelper.getInstance(this)
         data = intent.getBundleExtra("key")?.getSerializable("key") as AppealInfo
-        binding.numberText.text = data!!.phone_number
-        binding.districtNameId.text = data!!.district
-        binding.requestDate.text = data!!.request_data
-        binding.descId.text = data!!.description
-        binding.allowedTextId.text = isAllowText(data!!.isAllow)
-        firstValue = data!!.isAllow
+        binding.numberText.text = data.phone_number
+        binding.districtNameId.text = data.district
+        binding.requestDate.text = data.request_data
+        binding.descId.text = data.description
+        binding.allowedTextId.text = isAllowText(data.isAllow)
+        firstValue = data.isAllow
     }
 
     private fun isAllowText(value: Int): String {
@@ -50,13 +50,11 @@ class InfoItemScreen : AppCompatActivity() {
     }
 
     private fun clickEventAllowed() {
-        val db = dbHelper!!.writableDatabase
         binding.allowBtn.setOnClickListener {
             val myAsyncTask = AppealsAsyncTask(this)
-            myAsyncTask.execute(data!!.id)
-            binding.allowedTextId.text = isAllowText(data!!.isAllow)
+            myAsyncTask.execute(data.id)
+            binding.allowedTextId.text = isAllowText(1)
             binding.allowBtn.visibility = View.GONE
-
         }
 
 
@@ -92,10 +90,6 @@ class InfoItemScreen : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        dbHelper!!.close()
-    }
 
 
 }

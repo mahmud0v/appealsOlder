@@ -1,4 +1,4 @@
-package com.example.apppealolder
+package com.example.apppealolder.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +9,11 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.apppealolder.model.AppealInfo
+import com.example.apppealolder.model.LabelWord
+import com.example.apppealolder.R
 
-class AppealAdapter(private val labelType: String) : RecyclerView.Adapter<AppealAdapter.ViewHolder>() {
+class AppealAdapter : RecyclerView.Adapter<AppealAdapter.ViewHolder>() {
 
     var onItemClick: ((AppealInfo) -> Unit)? = null
 
@@ -35,7 +38,7 @@ class AppealAdapter(private val labelType: String) : RecyclerView.Adapter<Appeal
             val detailButton: AppCompatButton = itemView.findViewById(R.id.detail_btn)
             val indexText: TextView = itemView.findViewById(R.id.appeal_index_id)
             val label: ImageView = itemView.findViewById(R.id.label_id)
-            if (labelType == LabelWord.label) {
+            if (data.isAllow == 1) {
                 label.setImageResource(R.drawable.bookmark)
             }
             indexText.text = "#".plus(data.id)
