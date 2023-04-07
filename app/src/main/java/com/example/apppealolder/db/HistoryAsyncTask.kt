@@ -10,10 +10,9 @@ class HistoryAsyncTask(
     private val context: Context,
     private val asyncTaskCallback: AsyncTaskCallback
 ) : AsyncTask<Unit, Unit, ResponseData>() {
-    private var list: ArrayList<AppealInfo>? = null
+    private val list: ArrayList<AppealInfo> by lazy { ArrayList() }
 
     override fun onPreExecute() {
-        list = ArrayList()
         asyncTaskCallback.onLoading()
     }
 
@@ -21,8 +20,8 @@ class HistoryAsyncTask(
     override fun doInBackground(vararg p0: Unit?): ResponseData? {
         val dbHelper = DBHelper.getInstance(context)
         try {
-            val db = dbHelper?.readableDatabase
-            val cursor = db?.query(
+            val db = dbHelper.readableDatabase
+            val cursor = db.query(
                 "Appeals",
                 arrayOf(
                     "id",
@@ -47,10 +46,10 @@ class HistoryAsyncTask(
                     cursor.getString(4),
                     cursor.getInt(5),
                 )
-                list!!.add(data)
+                list.add(data)
             }
             cursor.close()
-            dbHelper!!.close()
+            dbHelper.close()
             return ResponseData(true, "Success")
 //            throw SQLException("Sadasdasdasdasdasd")
 
@@ -62,7 +61,7 @@ class HistoryAsyncTask(
 
     override fun onPostExecute(result: ResponseData?) {
         if (result!!.isSuccess) {
-            asyncTaskCallback.onSuccess(list!!)
+            asyncTaskCallback.onSuccess(list)
         } else {
             asyncTaskCallback.onError(result.message)
         }

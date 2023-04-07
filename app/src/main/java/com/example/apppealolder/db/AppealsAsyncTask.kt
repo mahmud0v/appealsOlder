@@ -10,11 +10,10 @@ class AppealsAsyncTask(
     private val context: Context,
 ) : AsyncTask<Int, Unit, Boolean>() {
 
-    private lateinit var contentValue: ContentValues
+    private  val contentValue: ContentValues by lazy { ContentValues() }
 
 
     override fun onPreExecute() {
-        contentValue = ContentValues()
         contentValue.put("isAllow", 1)
     }
 

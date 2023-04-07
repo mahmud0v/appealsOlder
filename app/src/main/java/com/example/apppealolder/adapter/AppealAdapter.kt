@@ -75,4 +75,6 @@ class AppealAdapter : RecyclerView.Adapter<AppealAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(position)
     }
+
 }
+

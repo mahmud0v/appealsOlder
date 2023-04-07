@@ -57,7 +57,7 @@ class MainAsyncTask(
 
                 )
 
-                list!!.add(data)
+                list.add(data)
             }
             cursor.close()
             dbHelper.close()

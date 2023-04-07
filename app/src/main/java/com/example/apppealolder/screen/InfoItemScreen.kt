@@ -14,17 +14,16 @@ import com.example.apppealolder.model.AppealInfo
 
 class InfoItemScreen : AppCompatActivity() {
     private val binding: InfoItemScreenBinding by viewBinding()
-    private lateinit var data:AppealInfo
+    private lateinit var data: AppealInfo
     private var firstValue: Int = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.info_item_screen)
+        initToolbar()
         loadData()
         clickEventAllowed()
-        clickBack()
-        changeBackIcon()
 
 
     }
@@ -60,35 +59,36 @@ class InfoItemScreen : AppCompatActivity() {
 
     }
 
-    private fun clickBack() {
-        binding.backId.setOnClickListener {
-            onBackPressed()
+
+    private fun initToolbar() {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolbar.setNavigationOnClickListener {
+            back()
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (firstValue == 1) {
-            change(HistoryAppealScreen())
-        } else {
-            change(MainActivity())
-        }
-    }
-
-    private fun change(activity: AppCompatActivity) {
-        startActivity(Intent(this, activity::class.java))
+    private fun back() {
+        val intent = Intent()
+        intent.putExtra("key", data.id)
+        setResult(5, intent)
         finish()
+
     }
 
-    private fun changeBackIcon() {
-        val modeSharedPref = getSharedPreferences("modeShared", Context.MODE_PRIVATE)
-        val mode = modeSharedPref.getString("key", "light")
-        if (mode == "light") {
-            binding.backId.setImageResource(R.drawable.back_icon)
-        } else {
-            binding.backId.setImageResource(R.drawable.night_back_icon)
-        }
-    }
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        if (firstValue == 1) {
+//            change(HistoryAppealScreen())
+//        } else {
+//            change(MainActivity())
+//        }
+//    }
+
+//    private fun change(activity: AppCompatActivity) {
+//        startActivity(Intent(this, activity::class.java))
+//        finish()
 
 
 

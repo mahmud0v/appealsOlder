@@ -4,10 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.apppealolder.model.LabelWord
 import com.example.apppealolder.R
 import com.example.apppealolder.adapter.AppealAdapter
 import com.example.apppealolder.databinding.HistoryAppealScreenBinding
@@ -64,14 +62,14 @@ class HistoryAppealScreen : AppCompatActivity() {
 
 
     private fun itemClickEvent() {
-        adapter?.onItemClick = {
+        adapter.onItemClick = {
             val bundle = Bundle().apply {
                 putSerializable("key", it)
             }
             val intent = Intent(this, InfoItemScreen::class.java)
             intent.putExtra("key", bundle)
             startActivity(intent)
-            finish()
+//            finish()
         }
 
     }

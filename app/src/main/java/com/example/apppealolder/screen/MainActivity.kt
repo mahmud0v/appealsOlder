@@ -6,6 +6,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -75,8 +76,8 @@ class MainActivity : AppCompatActivity() {
             }
             val intent = Intent(this@MainActivity, InfoItemScreen::class.java)
             intent.putExtra("key", bundle)
-            startActivity(intent)
-            finish()
+            startActivityForResult(intent, 1)
+//            finish()
 
 
         }
@@ -107,10 +108,6 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun startActivityForResult(intent: Intent, requestCode: Int) {
-        super.startActivityForResult(intent, requestCode)
-        finish()
-    }
 
 
     private fun checkLang() {
@@ -141,6 +138,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideLoader() {
         binding.progressBar.visibility = View.GONE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        initRecycler()
     }
 
 
