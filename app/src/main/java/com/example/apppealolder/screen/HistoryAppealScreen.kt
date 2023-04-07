@@ -31,7 +31,7 @@ class HistoryAppealScreen : AppCompatActivity() {
         val asyncTaskCallback = object : AsyncTaskCallback {
 
 
-            override fun onSuccess(listData: ArrayList<AppealInfo>) {
+            override fun onSuccess(listData: ArrayList<AppealInfo>?) {
                 hideLoader()
                 adapter.differ.submitList(listData)
                 binding.historyId.rvNewsId.adapter = adapter
@@ -69,7 +69,6 @@ class HistoryAppealScreen : AppCompatActivity() {
             val intent = Intent(this, InfoItemScreen::class.java)
             intent.putExtra("key", bundle)
             startActivity(intent)
-//            finish()
         }
 
     }

@@ -10,7 +10,9 @@ import com.example.apppealolder.model.LabelWord
 import com.example.apppealolder.R
 import com.example.apppealolder.databinding.InfoItemScreenBinding
 import com.example.apppealolder.db.AppealsAsyncTask
+import com.example.apppealolder.db.AsyncTaskCallback
 import com.example.apppealolder.model.AppealInfo
+import com.google.android.material.snackbar.Snackbar
 
 class InfoItemScreen : AppCompatActivity() {
     private val binding: InfoItemScreenBinding by viewBinding()
@@ -49,13 +51,26 @@ class InfoItemScreen : AppCompatActivity() {
     }
 
     private fun clickEventAllowed() {
+        val asyncTaskCallback = object : AsyncTaskCallback {
+            override fun onSuccess(listData: ArrayList<AppealInfo>?) {
+
+            }
+
+            override fun onError(error: String) {
+                Snackbar.make(binding.allowBtn, error, Snackbar.LENGTH_SHORT).show()
+            }
+
+            override fun onLoading() {
+
+            }
+
+        }
         binding.allowBtn.setOnClickListener {
-            val myAsyncTask = AppealsAsyncTask(this)
+            val myAsyncTask = AppealsAsyncTask(this,asyncTaskCallback)
             myAsyncTask.execute(data.id)
             binding.allowedTextId.text = isAllowText(1)
             binding.allowBtn.visibility = View.GONE
         }
-
 
     }
 
@@ -76,20 +91,6 @@ class InfoItemScreen : AppCompatActivity() {
         finish()
 
     }
-
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//        if (firstValue == 1) {
-//            change(HistoryAppealScreen())
-//        } else {
-//            change(MainActivity())
-//        }
-//    }
-
-//    private fun change(activity: AppCompatActivity) {
-//        startActivity(Intent(this, activity::class.java))
-//        finish()
-
 
 
 }

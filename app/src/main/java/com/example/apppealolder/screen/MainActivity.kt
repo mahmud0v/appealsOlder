@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private fun initRecycler() {
         val asyncTaskCallback = object : AsyncTaskCallback {
 
-            override fun onSuccess(listData: ArrayList<AppealInfo>) {
+            override fun onSuccess(listData: ArrayList<AppealInfo>?) {
                 hideLoader()
                 adapter.differ.submitList(listData)
                 binding.newsAppealsId.rvNewsId.adapter = adapter

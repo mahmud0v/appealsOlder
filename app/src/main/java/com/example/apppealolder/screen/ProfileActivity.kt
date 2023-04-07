@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatDelegate
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,6 +18,8 @@ import com.example.apppealolder.databinding.ActivityProfileBinding
 class ProfileActivity : AppCompatActivity() {
     private val binding: ActivityProfileBinding by viewBinding()
     private lateinit var modeSharedPref: SharedPreferences
+
+    //    private val dialog:Dialog by lazy { Dialog(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -74,59 +77,38 @@ class ProfileActivity : AppCompatActivity() {
         val english: LinearLayout = dialog.findViewById(R.id.english)
         val russian: LinearLayout = dialog.findViewById(R.id.russian)
         val uzbek: LinearLayout = dialog.findViewById(R.id.uzbek)
+        val layoutList = arrayListOf(english, russian, uzbek)
+        val checkList =
+            arrayListOf(english.getChildAt(1), russian.getChildAt(1), uzbek.getChildAt(1))
         val lang = LocaleHelper.savedLang(this)
-        checkLang(english, russian, uzbek, lang)
-        english.setOnClickListener {
-            changeLang("en", english)
-            english.getChildAt(1).visibility = View.VISIBLE
-            russian.getChildAt(1).visibility = View.GONE
-            uzbek.getChildAt(1).visibility = View.GONE
-            dialog.dismiss()
+        checkLang(checkList, lang)
+        for (i in layoutList) {
+            i.setOnClickListener {
+                checkLang(checkList, i.tag.toString())
+                dialog.dismiss()
+                changeLang(i.tag.toString())
+            }
         }
-        russian.setOnClickListener {
-            changeLang("ru", russian)
-            english.getChildAt(1).visibility = View.GONE
-            russian.getChildAt(1).visibility = View.VISIBLE
-            uzbek.getChildAt(1).visibility = View.GONE
-            dialog.dismiss()
-        }
-        uzbek.setOnClickListener {
-            changeLang("uz", uzbek)
-            english.getChildAt(1).visibility = View.GONE
-            russian.getChildAt(1).visibility = View.GONE
-            uzbek.getChildAt(1).visibility = View.VISIBLE
-            dialog.dismiss()
-        }
-        dialog.show()
 
+        dialog.show()
 
     }
 
-    private fun changeLang(lang: String, layout: LinearLayout) {
+
+    private fun changeLang(lang: String) {
         LocaleHelper.changeLanguage(lang, this)
         startActivity(Intent(this, ProfileActivity::class.java))
         finish()
 
     }
 
-    private fun checkLang(
-        layout1: LinearLayout,
-        layout2: LinearLayout,
-        layout3: LinearLayout,
-        lang: String
-    ) {
-        if (lang == "en") {
-            layout1.getChildAt(1).visibility = View.VISIBLE
-            layout2.getChildAt(1).visibility = View.GONE
-            layout3.getChildAt(1).visibility = View.GONE
-        } else if (lang == "ru") {
-            layout1.getChildAt(1).visibility = View.GONE
-            layout2.getChildAt(1).visibility = View.VISIBLE
-            layout3.getChildAt(1).visibility = View.GONE
-        } else {
-            layout1.getChildAt(1).visibility = View.GONE
-            layout2.getChildAt(1).visibility = View.GONE
-            layout3.getChildAt(1).visibility = View.VISIBLE
+    private fun checkLang(checkList: ArrayList<View>, lang: String) {
+        for (i in checkList) {
+            if (i.tag.toString() == lang) {
+                i.visibility = View.VISIBLE
+            } else {
+                i.visibility = View.GONE
+            }
         }
 
     }

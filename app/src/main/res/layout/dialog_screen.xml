@@ -11,6 +11,7 @@
         android:id="@+id/english"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="en"
         android:layout_marginTop="30dp"
         android:orientation="horizontal"
        >
@@ -28,6 +29,7 @@
         <ImageView
             android:id="@+id/check_btn1"
             android:layout_width="24dp"
+            android:tag="en"
             android:layout_height="24dp"
             android:visibility="visible"
             android:layout_marginStart="120dp"
@@ -45,6 +47,7 @@
         android:id="@+id/russian"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="ru"
         android:layout_marginTop="10dp"
        >
 
@@ -62,6 +65,7 @@
             android:id="@+id/check_btn2"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:tag="ru"
             android:layout_marginStart="120dp"
             android:src="@drawable/check"
             android:visibility="visible" />
@@ -78,6 +82,7 @@
         android:id="@+id/uzbek"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="uz"
         android:layout_marginTop="10dp"
         >
 
@@ -94,6 +99,7 @@
         <ImageView
             android:id="@+id/check_btn3"
             android:layout_width="24dp"
+            android:tag="uz"
             android:layout_height="24dp"
             android:layout_marginStart="120dp"
             android:src="@drawable/check"
