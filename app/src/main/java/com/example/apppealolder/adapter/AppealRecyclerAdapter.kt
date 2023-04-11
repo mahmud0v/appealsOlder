@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apppealolder.model.AppealInfo
-import com.example.apppealolder.model.LabelWord
 import com.example.apppealolder.R
 
-class AppealAdapter : RecyclerView.Adapter<AppealAdapter.ViewHolder>() {
+class AppealRecyclerAdapter : RecyclerView.Adapter<AppealRecyclerAdapter.ViewHolder>() {
 
     var onItemClick: ((AppealInfo) -> Unit)? = null
 

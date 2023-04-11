@@ -7,43 +7,32 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatDelegate
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.db.LocaleHelper
 import com.example.apppealolder.R
-import com.example.apppealolder.databinding.ActivityProfileBinding
+import com.example.apppealolder.databinding.SettingsActivityBinding
+import com.example.apppealolder.utils.unVisible
+import com.example.apppealolder.utils.visible
 
-class ProfileActivity : AppCompatActivity() {
-    private val binding: ActivityProfileBinding by viewBinding()
+class SettingsActivity : AppCompatActivity() {
+    private val binding: SettingsActivityBinding by viewBinding()
     private lateinit var modeSharedPref: SharedPreferences
 
-    //    private val dialog:Dialog by lazy { Dialog(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.settings_activity)
 
-        manageBotNavView()
-        modeBtnClick()
-        switchMode()
-        createModeSharedPref()
-        checkMode()
-
-
-    }
-
-
-    private fun manageBotNavView() {
         binding.botNavId.selectedItemId = R.id.profileScreen
         binding.botNavId.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.newAppealsScreen -> {
-                    change(MainActivity())
+                    change(NewAppealActivity())
                     true
                 }
                 R.id.historyAppealsScreen -> {
-                    change(HistoryAppealScreen())
+                    change(HistoryAppealActivity())
                     true
                 }
 
@@ -52,7 +41,17 @@ class ProfileActivity : AppCompatActivity() {
 
             }
         }
+
+        binding.langLayoutId.setOnClickListener {
+            showDialog()
+        }
+        switchMode()
+        createModeSharedPref()
+        checkMode()
+
+
     }
+
 
     private fun change(activity: AppCompatActivity) {
         startActivity(Intent(this, activity::class.java))
@@ -62,14 +61,10 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, NewAppealActivity::class.java))
     }
 
-    private fun modeBtnClick() {
-        binding.langId.langLayoutId.setOnClickListener {
-            showDialog()
-        }
-    }
+
 
     private fun showDialog() {
         val dialog = Dialog(this)
@@ -97,25 +92,25 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun changeLang(lang: String) {
         LocaleHelper.changeLanguage(lang, this)
-        startActivity(Intent(this, ProfileActivity::class.java))
+        startActivity(Intent(this, SettingsActivity::class.java))
         finish()
 
     }
 
     private fun checkLang(checkList: ArrayList<View>, lang: String) {
-        for (i in checkList) {
-            if (i.tag.toString() == lang) {
-                i.visibility = View.VISIBLE
+        for (view in checkList) {
+            if (view.tag.toString() == lang) {
+                view.visible()
             } else {
-                i.visibility = View.GONE
+                view.unVisible()
             }
         }
 
     }
 
     private fun switchMode() {
-        binding.langId.switchId.setOnClickListener {
-            if (binding.langId.switchId.isChecked) {
+        binding.switchId.setOnClickListener {
+            if (binding.switchId.isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 modeSharedPref.edit().putString("key", "night").apply()
             } else {
@@ -128,7 +123,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun checkMode() {
         val mode = modeSharedPref.getString("key", "light")
-        binding.langId.switchId.isChecked = mode != "light"
+        binding.switchId.isChecked = mode != "light"
     }
 
     private fun createModeSharedPref() {

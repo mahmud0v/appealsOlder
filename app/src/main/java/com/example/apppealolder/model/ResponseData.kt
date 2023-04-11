@@ -1,6 +1,8 @@
 package com.example.apppealolder
 
-data class ResponseData(
+import java.lang.Exception
+data class ResponseData<T>(
     val isSuccess: Boolean,
-    val message: String
+    val data:T? = null,
+    val exception: Exception? =null
 )

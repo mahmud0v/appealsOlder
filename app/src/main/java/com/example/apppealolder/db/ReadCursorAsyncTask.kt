@@ -6,22 +6,21 @@ import com.example.apppealolder.ResponseData
 import com.example.apppealolder.model.AppealInfo
 import java.sql.SQLException
 
-class MainAsyncTask(
+class ReadCursorAsyncTask(
     private val context: Context,
-    private val asyncTaskCallback: AsyncTaskCallback
-) : AsyncTask<Unit, Unit, ResponseData>() {
+    private val asyncTaskCallback: AsyncTaskCallback<ArrayList<AppealInfo>>
+) : AsyncTask<Int, Unit, ResponseData<ArrayList<AppealInfo>>>() {
 
-    private val list: ArrayList<AppealInfo> by lazy { ArrayList() }
 
     override fun onPreExecute() {
-        asyncTaskCallback.onLoading()
 
     }
 
-    override fun doInBackground(vararg p0: Unit?): ResponseData {
+    override fun doInBackground(vararg isAllow: Int?): ResponseData<ArrayList<AppealInfo>> {
         val dbHelper = DBHelper.getInstance(context)
         try {
             val db = dbHelper.readableDatabase
+            val appealList = ArrayList<AppealInfo>()
             val cursor = db.query(
                 "Appeals",
                 arrayOf(
@@ -33,7 +32,7 @@ class MainAsyncTask(
                     "isAllow"
                 ),
                 "isAllow= ?",
-                arrayOf("0"),
+                arrayOf(isAllow.sumOf { it!! }.toString()),
                 null,
                 null,
                 null
@@ -57,24 +56,24 @@ class MainAsyncTask(
 
                 )
 
-                list.add(data)
+                appealList.add(data)
             }
             cursor.close()
             dbHelper.close()
-            return ResponseData(true, "Success")
+            return ResponseData(isSuccess = true, data = appealList)
 
         } catch (e: SQLException) {
-            return ResponseData(false, "${e.message}")
+            return ResponseData(isSuccess = false, exception = e)
         }
 
 
     }
 
-    override fun onPostExecute(result: ResponseData) {
+    override fun onPostExecute(result: ResponseData<ArrayList<AppealInfo>>) {
         if (result.isSuccess) {
-            asyncTaskCallback.onSuccess(list)
+            asyncTaskCallback.onSuccess(result.data)
         } else {
-            asyncTaskCallback.onError(result.message)
+            asyncTaskCallback.onError(result.exception)
         }
     }
 

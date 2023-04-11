@@ -3,22 +3,23 @@ package com.example.apppealolder.db
 import android.content.ContentValues
 import android.content.Context
 import android.os.AsyncTask
-import android.widget.Toast
+import androidx.annotation.Nullable
 import com.example.apppealolder.ResponseData
 import java.sql.SQLException
 
-class AppealsAsyncTask(
-    private val context: Context, private val asyncTaskCallback: AsyncTaskCallback
-) : AsyncTask<Int, Unit, ResponseData>() {
+class AppealsUpdateAsyncTask(
+    private val context: Context, private val asyncTaskCallback: AsyncTaskCallback<Nothing>
+) : AsyncTask<Int, Unit, ResponseData<Nothing>>() {
 
-    private val contentValue: ContentValues by lazy { ContentValues() }
+    private lateinit var contentValue: ContentValues
 
 
     override fun onPreExecute() {
+        contentValue = ContentValues()
         contentValue.put("isAllow", 1)
     }
 
-    override fun doInBackground(vararg id: Int?): ResponseData? {
+    override fun doInBackground(vararg id: Int?): ResponseData<Nothing> {
         val dbHelper = DBHelper.getInstance(context)
         return try {
 
@@ -27,9 +28,9 @@ class AppealsAsyncTask(
                 "Appeals", contentValue, "id= ?", arrayOf(id.sumOf { it!! }.toString())
             )
             db.close()
-            ResponseData(true, "Success")
+            ResponseData(isSuccess = true)
         } catch (e: SQLException) {
-            ResponseData(false, e.message.toString())
+            ResponseData(isSuccess = false, exception = e)
         }
 
 
@@ -40,11 +41,11 @@ class AppealsAsyncTask(
     }
 
 
-    override fun onPostExecute(result: ResponseData) {
+    override fun onPostExecute(result: ResponseData<Nothing>) {
         if (result.isSuccess) {
-            asyncTaskCallback.onSuccess(null)
+            asyncTaskCallback.onSuccess()
         } else {
-            asyncTaskCallback.onError(result.message)
+            asyncTaskCallback.onError(result.exception)
         }
     }
 

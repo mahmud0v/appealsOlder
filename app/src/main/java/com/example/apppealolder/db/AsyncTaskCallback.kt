@@ -1,11 +1,11 @@
 package com.example.apppealolder.db
 
-import com.example.apppealolder.model.AppealInfo
+import java.lang.Exception
 
-interface AsyncTaskCallback {
 
-    fun onSuccess(listData:ArrayList<AppealInfo>?)
-    fun onError(error:String)
-    fun onLoading()
+interface AsyncTaskCallback<T> {
+
+    fun onSuccess(listData: T? = null)
+    fun onError(error:Exception?)
 
 }
