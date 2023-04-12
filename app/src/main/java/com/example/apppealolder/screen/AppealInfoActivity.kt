@@ -3,7 +3,6 @@ package com.example.apppealolder.screen
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.model.LabelWord
 import com.example.apppealolder.R
@@ -11,6 +10,7 @@ import com.example.apppealolder.databinding.AppealInfoActivityBinding
 import com.example.apppealolder.db.AppealsUpdateAsyncTask
 import com.example.apppealolder.db.AsyncTaskCallback
 import com.example.apppealolder.model.AppealInfo
+import com.example.apppealolder.model.LabelWord.Companion.APPEAL_INFO
 import com.example.apppealolder.utils.showSnackbar
 import com.example.apppealolder.utils.unVisible
 import java.lang.Exception
@@ -46,6 +46,7 @@ class AppealInfoActivity : AppCompatActivity() {
         binding.allowBtn.setOnClickListener {
             val myAsyncTask = AppealsUpdateAsyncTask(this, asyncTaskCallback)
             myAsyncTask.execute(data.id)
+            data.isAllow = 1
             binding.allowedTextId.text = isAllowText(1)
             binding.allowBtn.unVisible()
         }
@@ -57,7 +58,7 @@ class AppealInfoActivity : AppCompatActivity() {
 
 
     private fun loadData() {
-        data = intent.getBundleExtra("key")?.getSerializable("key") as AppealInfo
+        data = intent.getSerializableExtra(APPEAL_INFO) as AppealInfo
         binding.numberText.text = data.phone_number
         binding.districtNameId.text = data.district
         binding.requestDate.text = data.request_data
@@ -69,7 +70,7 @@ class AppealInfoActivity : AppCompatActivity() {
         if (value == 0) {
             return LabelWord.pendingAllowed
         } else {
-            binding.allowBtn.visibility = View.GONE
+            binding.allowBtn.unVisible()
             return LabelWord.allowed
         }
     }
@@ -77,10 +78,15 @@ class AppealInfoActivity : AppCompatActivity() {
 
     private fun back() {
         val intent = Intent()
-        intent.putExtra("key", data.id)
-        setResult(5, intent)
+        intent.putExtra(APPEAL_INFO, data)
+        setResult(RESULT_OK, intent)
         finish()
 
+    }
+
+    override fun onBackPressed() {
+        back()
+        super.onBackPressed()
     }
 
 

@@ -3,7 +3,6 @@ package com.example.apppealolder.screen
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.R
@@ -12,8 +11,8 @@ import com.example.apppealolder.databinding.HistoryAppealActivityBinding
 import com.example.apppealolder.db.AsyncTaskCallback
 import com.example.apppealolder.db.ReadCursorAsyncTask
 import com.example.apppealolder.model.AppealInfo
+import com.example.apppealolder.model.LabelWord.Companion.APPEAL_INFO
 import com.example.apppealolder.utils.*
-import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
 class HistoryAppealActivity : AppCompatActivity() {
@@ -21,7 +20,7 @@ class HistoryAppealActivity : AppCompatActivity() {
     private lateinit var adapter: AppealRecyclerAdapter
     private val asyncTaskCallback = object : AsyncTaskCallback<ArrayList<AppealInfo>> {
         override fun onSuccess(listData: ArrayList<AppealInfo>?) {
-            binding.progressBar.visible()
+            binding.progressBar.unVisible()
             adapter.differ.submitList(listData)
             binding.rvNewsId.adapter = adapter
             binding.rvNewsId.layoutManager = LinearLayoutManager(this@HistoryAppealActivity)
@@ -37,6 +36,7 @@ class HistoryAppealActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.history_appeal_activity)
+        adapter = AppealRecyclerAdapter()
         binding.progressBar.visible()
         binding.botNavId.selectedItemId = R.id.historyAppealsScreen
         binding.botNavId.setOnItemSelectedListener {
@@ -58,13 +58,10 @@ class HistoryAppealActivity : AppCompatActivity() {
 
 
         val readCursorAsyncTask = ReadCursorAsyncTask(this, asyncTaskCallback)
-        readCursorAsyncTask.execute()
+        readCursorAsyncTask.execute(1)
         adapter.onItemClick = {
-            val bundle = Bundle().apply {
-                putSerializable("key", it)
-            }
             val intent = Intent(this, AppealInfoActivity::class.java)
-            intent.putExtra("key", bundle)
+            intent.putExtra(APPEAL_INFO, it)
             startActivity(intent)
         }
 

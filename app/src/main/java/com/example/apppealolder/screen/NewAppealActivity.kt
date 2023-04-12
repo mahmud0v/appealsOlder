@@ -14,6 +14,15 @@ import com.example.apppealolder.databinding.NewAppealActivityBinding
 import com.example.apppealolder.db.AsyncTaskCallback
 import com.example.apppealolder.db.ReadCursorAsyncTask
 import com.example.apppealolder.model.AppealInfo
+import com.example.apppealolder.model.LabelWord.Companion.APPEAL_INFO
+import com.example.apppealolder.model.LabelWord.Companion.ENG
+import com.example.apppealolder.model.LabelWord.Companion.GO_INFO_ACTIVITY
+import com.example.apppealolder.model.LabelWord.Companion.MODE_DEF
+import com.example.apppealolder.model.LabelWord.Companion.MODE_LIGHT
+import com.example.apppealolder.model.LabelWord.Companion.RU
+import com.example.apppealolder.model.LabelWord.Companion.SHARED_KEY
+import com.example.apppealolder.model.LabelWord.Companion.SHARED_MODE
+import com.example.apppealolder.model.LabelWord.Companion.UZ
 import com.example.apppealolder.utils.showSnackbar
 import com.example.apppealolder.utils.unVisible
 import com.example.apppealolder.utils.visible
@@ -45,35 +54,31 @@ class NewAppealActivity : AppCompatActivity() {
         binding.progressBar.visible()
         adapter = AppealRecyclerAdapter()
         val readCursorAsyncTask = ReadCursorAsyncTask(this, asyncTaskCallback)
-        readCursorAsyncTask.execute()
+        readCursorAsyncTask.execute(0)
 
         adapter.onItemClick = {
-            val bundle = Bundle().apply {
-                putSerializable("key", it)
-            }
             val intent = Intent(this@NewAppealActivity, AppealInfoActivity::class.java)
-            intent.putExtra("key", bundle)
-            startActivityForResult(intent, 1)
+            intent.putExtra(APPEAL_INFO, it)
+            startActivityForResult(intent, GO_INFO_ACTIVITY)
 
-            binding.botNavId.selectedItemId = R.id.newAppealsScreen
-            binding.botNavId.setOnItemSelectedListener {
-                when (it.itemId) {
-                    R.id.profileScreen -> {
-                        change(SettingsActivity())
-                        true
-                    }
-                    R.id.historyAppealsScreen -> {
-                        change(HistoryAppealActivity())
-                        true
-                    }
+        }
 
-
-                    else -> true
-
+        binding.botNavId.selectedItemId = R.id.newAppealsScreen
+        binding.botNavId.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.profileScreen -> {
+                    change(SettingsActivity())
+                    true
                 }
+                R.id.historyAppealsScreen -> {
+                    change(HistoryAppealActivity())
+                    true
+                }
+
+
+                else -> true
+
             }
-
-
         }
 
         checkLang()
@@ -90,32 +95,43 @@ class NewAppealActivity : AppCompatActivity() {
 
 
     private fun checkLang() {
-        val storedLang = LocaleHelper.savedLang(this)
-        if (storedLang == "en") {
-            LocaleHelper.changeLanguage("en", this)
-        } else if (storedLang == "ru") {
-            LocaleHelper.changeLanguage("ru", this)
-        } else {
-            LocaleHelper.changeLanguage("uz", this)
+        when (LocaleHelper.savedLang(this)) {
+            ENG -> {
+                LocaleHelper.changeLanguage(ENG, this)
+            }
+            RU -> {
+                LocaleHelper.changeLanguage(RU, this)
+            }
+            else -> {
+                LocaleHelper.changeLanguage(UZ, this)
+            }
         }
     }
 
     private fun checkMode() {
-        val modeSharedPref = getSharedPreferences("modeShared", Context.MODE_PRIVATE)
-        val mode = modeSharedPref.getString("key", "light")
-        if (mode == "light") {
+        val modeSharedPref = getSharedPreferences(SHARED_MODE, Context.MODE_PRIVATE)
+        val mode = modeSharedPref.getString(SHARED_KEY, MODE_DEF)
+        if (mode == MODE_LIGHT) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
         }
     }
 
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        initRecycler()
-//    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GO_INFO_ACTIVITY && resultCode == RESULT_OK) {
+            val data = data?.getSerializableExtra(APPEAL_INFO) as AppealInfo
+            if (data.isAllow == 1) {
+                data.isAllow = 0
+                val list = adapter.differ.currentList.toMutableList()
+                list.remove(data)
+                adapter.differ.submitList(list)
+            }
+        }
+
+    }
 
 
 }

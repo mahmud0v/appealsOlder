@@ -13,6 +13,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.db.LocaleHelper
 import com.example.apppealolder.R
 import com.example.apppealolder.databinding.SettingsActivityBinding
+import com.example.apppealolder.model.LabelWord.Companion.MODE_LIGHT
+import com.example.apppealolder.model.LabelWord.Companion.MODE_NIGHT
+import com.example.apppealolder.model.LabelWord.Companion.SHARED_KEY
+import com.example.apppealolder.model.LabelWord.Companion.SHARED_MODE
 import com.example.apppealolder.utils.unVisible
 import com.example.apppealolder.utils.visible
 
@@ -112,22 +116,22 @@ class SettingsActivity : AppCompatActivity() {
         binding.switchId.setOnClickListener {
             if (binding.switchId.isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                modeSharedPref.edit().putString("key", "night").apply()
+                modeSharedPref.edit().putString(SHARED_MODE, MODE_NIGHT).apply()
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                modeSharedPref.edit().putString("key", "light").apply()
+                modeSharedPref.edit().putString(SHARED_KEY, MODE_LIGHT).apply()
 
             }
         }
     }
 
     private fun checkMode() {
-        val mode = modeSharedPref.getString("key", "light")
-        binding.switchId.isChecked = mode != "light"
+        val mode = modeSharedPref.getString(SHARED_KEY, MODE_LIGHT)
+        binding.switchId.isChecked = mode != MODE_LIGHT
     }
 
     private fun createModeSharedPref() {
-        modeSharedPref = getSharedPreferences("modeShared", Context.MODE_PRIVATE)
+        modeSharedPref = getSharedPreferences(SHARED_MODE, Context.MODE_PRIVATE)
     }
 
 
