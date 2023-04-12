@@ -9,7 +9,7 @@ import com.example.apppealolder.R
 import com.example.apppealolder.adapter.AppealRecyclerAdapter
 import com.example.apppealolder.databinding.HistoryAppealActivityBinding
 import com.example.apppealolder.db.AsyncTaskCallback
-import com.example.apppealolder.db.ReadCursorAsyncTask
+import com.example.apppealolder.db.ReadHistoryAppealAsyncTask
 import com.example.apppealolder.model.AppealInfo
 import com.example.apppealolder.model.LabelWord.Companion.APPEAL_INFO
 import com.example.apppealolder.utils.*
@@ -19,14 +19,14 @@ class HistoryAppealActivity : AppCompatActivity() {
     private val binding: HistoryAppealActivityBinding by viewBinding()
     private lateinit var adapter: AppealRecyclerAdapter
     private val asyncTaskCallback = object : AsyncTaskCallback<ArrayList<AppealInfo>> {
-        override fun onSuccess(listData: ArrayList<AppealInfo>?) {
+        override fun onSuccess(data: ArrayList<AppealInfo>?) {
             binding.progressBar.unVisible()
-            adapter.differ.submitList(listData)
+            adapter.differ.submitList(data)
             binding.rvNewsId.adapter = adapter
             binding.rvNewsId.layoutManager = LinearLayoutManager(this@HistoryAppealActivity)
         }
 
-        override fun onError(error: Exception?) {
+        override fun onError(error: Exception) {
             binding.progressBar.unVisible()
             binding.toolbarId.showSnackbar(error?.message.toString())
         }
@@ -57,8 +57,8 @@ class HistoryAppealActivity : AppCompatActivity() {
         }
 
 
-        val readCursorAsyncTask = ReadCursorAsyncTask(this, asyncTaskCallback)
-        readCursorAsyncTask.execute(1)
+        val readCursorAsyncTask = ReadHistoryAppealAsyncTask(this, asyncTaskCallback)
+        readCursorAsyncTask.execute()
         adapter.onItemClick = {
             val intent = Intent(this, AppealInfoActivity::class.java)
             intent.putExtra(APPEAL_INFO, it)

@@ -12,7 +12,7 @@ import com.example.apppealolder.R
 import com.example.apppealolder.adapter.AppealRecyclerAdapter
 import com.example.apppealolder.databinding.NewAppealActivityBinding
 import com.example.apppealolder.db.AsyncTaskCallback
-import com.example.apppealolder.db.ReadCursorAsyncTask
+import com.example.apppealolder.db.ReadNewAppealAsyncTask
 import com.example.apppealolder.model.AppealInfo
 import com.example.apppealolder.model.LabelWord.Companion.APPEAL_INFO
 import com.example.apppealolder.model.LabelWord.Companion.ENG
@@ -33,14 +33,14 @@ class NewAppealActivity : AppCompatActivity() {
     private lateinit var adapter: AppealRecyclerAdapter
     private val asyncTaskCallback = object : AsyncTaskCallback<ArrayList<AppealInfo>> {
 
-        override fun onSuccess(listData: ArrayList<AppealInfo>?) {
+        override fun onSuccess(data: ArrayList<AppealInfo>?) {
             binding.progressBar.unVisible()
-            adapter.differ.submitList(listData)
+            adapter.differ.submitList(data)
             binding.rvNewsId.adapter = adapter
             binding.rvNewsId.layoutManager = LinearLayoutManager(this@NewAppealActivity)
         }
 
-        override fun onError(error: Exception?) {
+        override fun onError(error: Exception) {
             binding.progressBar.unVisible()
             binding.botNavId.showSnackbar(error?.message.toString())
         }
@@ -53,14 +53,13 @@ class NewAppealActivity : AppCompatActivity() {
         setContentView(R.layout.new_appeal_activity)
         binding.progressBar.visible()
         adapter = AppealRecyclerAdapter()
-        val readCursorAsyncTask = ReadCursorAsyncTask(this, asyncTaskCallback)
-        readCursorAsyncTask.execute(0)
+        val readCursorAsyncTask = ReadNewAppealAsyncTask(this, asyncTaskCallback)
+        readCursorAsyncTask.execute()
 
         adapter.onItemClick = {
             val intent = Intent(this@NewAppealActivity, AppealInfoActivity::class.java)
             intent.putExtra(APPEAL_INFO, it)
             startActivityForResult(intent, GO_INFO_ACTIVITY)
-
         }
 
         binding.botNavId.selectedItemId = R.id.newAppealsScreen
@@ -81,20 +80,6 @@ class NewAppealActivity : AppCompatActivity() {
             }
         }
 
-        checkLang()
-        checkMode()
-
-
-    }
-
-
-    private fun change(activity: AppCompatActivity) {
-        startActivity(Intent(this, activity::class.java))
-        finish()
-    }
-
-
-    private fun checkLang() {
         when (LocaleHelper.savedLang(this)) {
             ENG -> {
                 LocaleHelper.changeLanguage(ENG, this)
@@ -106,9 +91,7 @@ class NewAppealActivity : AppCompatActivity() {
                 LocaleHelper.changeLanguage(UZ, this)
             }
         }
-    }
 
-    private fun checkMode() {
         val modeSharedPref = getSharedPreferences(SHARED_MODE, Context.MODE_PRIVATE)
         val mode = modeSharedPref.getString(SHARED_KEY, MODE_DEF)
         if (mode == MODE_LIGHT) {
@@ -116,7 +99,17 @@ class NewAppealActivity : AppCompatActivity() {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
+
+
     }
+
+
+    private fun change(activity: AppCompatActivity) {
+        startActivity(Intent(this, activity::class.java))
+        finish()
+    }
+
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

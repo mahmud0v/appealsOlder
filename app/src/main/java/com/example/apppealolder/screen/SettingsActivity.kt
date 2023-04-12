@@ -116,7 +116,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.switchId.setOnClickListener {
             if (binding.switchId.isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                modeSharedPref.edit().putString(SHARED_MODE, MODE_NIGHT).apply()
+                modeSharedPref.edit().putString(SHARED_KEY, MODE_NIGHT).apply()
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 modeSharedPref.edit().putString(SHARED_KEY, MODE_LIGHT).apply()

@@ -75,5 +75,7 @@ class AppealRecyclerAdapter : RecyclerView.Adapter<AppealRecyclerAdapter.ViewHol
         holder.bind(position)
     }
 
+
+
 }
 

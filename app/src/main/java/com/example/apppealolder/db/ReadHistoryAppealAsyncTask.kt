@@ -6,17 +6,16 @@ import com.example.apppealolder.ResponseData
 import com.example.apppealolder.model.AppealInfo
 import java.sql.SQLException
 
-class ReadCursorAsyncTask(
-    private val context: Context,
-    private val asyncTaskCallback: AsyncTaskCallback<ArrayList<AppealInfo>>
-) : AsyncTask<Int, Unit, ResponseData<ArrayList<AppealInfo>>>() {
+class ReadHistoryAppealAsyncTask(private val context: Context,
+private val asyncTaskCallback: AsyncTaskCallback<ArrayList<AppealInfo>>
+) : AsyncTask<Unit, Unit, ResponseData<ArrayList<AppealInfo>>>() {
 
 
     override fun onPreExecute() {
 
     }
 
-    override fun doInBackground(vararg isAllow: Int?): ResponseData<ArrayList<AppealInfo>> {
+    override fun doInBackground(vararg p0: Unit?): ResponseData<ArrayList<AppealInfo>>? {
         val dbHelper = DBHelper.getInstance(context)
         try {
             val db = dbHelper.readableDatabase
@@ -32,7 +31,7 @@ class ReadCursorAsyncTask(
                     "isAllow"
                 ),
                 "isAllow= ?",
-                arrayOf(isAllow.sumOf { it!! }.toString()),
+                arrayOf("1"),
                 null,
                 null,
                 null
@@ -78,5 +77,3 @@ class ReadCursorAsyncTask(
     }
 
 }
-
-

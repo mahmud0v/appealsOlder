@@ -3,7 +3,6 @@ package com.example.apppealolder.db
 import android.content.ContentValues
 import android.content.Context
 import android.os.AsyncTask
-import androidx.annotation.Nullable
 import com.example.apppealolder.ResponseData
 import java.sql.SQLException
 

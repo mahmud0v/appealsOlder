@@ -25,11 +25,12 @@ class AppealInfoActivity : AppCompatActivity() {
 
         }
 
-        override fun onError(error: Exception?) {
+        override fun onError(error: Exception) {
             binding.toolbar.showSnackbar(error?.message.toString())
         }
 
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
