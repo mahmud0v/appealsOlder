@@ -15,7 +15,7 @@ private val asyncTaskCallback: AsyncTaskCallback<ArrayList<AppealInfo>>
 
     }
 
-    override fun doInBackground(vararg p0: Unit?): ResponseData<ArrayList<AppealInfo>>? {
+    override fun doInBackground(vararg p0: Unit?): ResponseData<ArrayList<AppealInfo>> {
         val dbHelper = DBHelper.getInstance(context)
         try {
             val db = dbHelper.readableDatabase

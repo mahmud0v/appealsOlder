@@ -17,20 +17,21 @@ import java.lang.Exception
 
 class AppealInfoActivity : AppCompatActivity() {
     private val binding: AppealInfoActivityBinding by viewBinding()
-    private lateinit var data: AppealInfo
+    private lateinit var appealData: AppealInfo
 
 
-    private val asyncTaskCallback = object : AsyncTaskCallback<Nothing> {
-        override fun onSuccess(listData: Nothing?) {
+    private val asyncTaskCallback = object : AsyncTaskCallback<Int> {
 
+        override fun onSuccess(data: Int?) {
+            appealData.isAllow = data!!
         }
 
-        override fun onError(error: Exception) {
+
+        override fun onError(error: Exception?) {
             binding.toolbar.showSnackbar(error?.message.toString())
         }
 
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,40 +47,38 @@ class AppealInfoActivity : AppCompatActivity() {
 
         binding.allowBtn.setOnClickListener {
             val myAsyncTask = AppealsUpdateAsyncTask(this, asyncTaskCallback)
-            myAsyncTask.execute(data.id)
-            data.isAllow = 1
+            myAsyncTask.execute(appealData.id)
             binding.allowedTextId.text = isAllowText(1)
             binding.allowBtn.unVisible()
         }
 
         loadData()
 
-
     }
 
 
     private fun loadData() {
-        data = intent.getSerializableExtra(APPEAL_INFO) as AppealInfo
-        binding.numberText.text = data.phone_number
-        binding.districtNameId.text = data.district
-        binding.requestDate.text = data.request_data
-        binding.descId.text = data.description
-        binding.allowedTextId.text = isAllowText(data.isAllow)
+        appealData = intent.getSerializableExtra(APPEAL_INFO) as AppealInfo
+        binding.numberText.text = appealData.phone_number
+        binding.districtNameId.text = appealData.district
+        binding.requestDate.text = appealData.request_data
+        binding.descId.text = appealData.description
+        binding.allowedTextId.text = isAllowText(appealData.isAllow)
     }
 
     private fun isAllowText(value: Int): String {
-        if (value == 0) {
-            return LabelWord.pendingAllowed
+        return if (value == 0) {
+            LabelWord.pendingAllowed
         } else {
             binding.allowBtn.unVisible()
-            return LabelWord.allowed
+            LabelWord.allowed
         }
     }
 
 
     private fun back() {
         val intent = Intent()
-        intent.putExtra(APPEAL_INFO, data)
+        intent.putExtra(APPEAL_INFO, appealData)
         setResult(RESULT_OK, intent)
         finish()
 

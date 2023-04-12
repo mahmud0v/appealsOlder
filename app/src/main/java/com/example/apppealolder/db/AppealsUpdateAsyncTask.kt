@@ -7,8 +7,8 @@ import com.example.apppealolder.ResponseData
 import java.sql.SQLException
 
 class AppealsUpdateAsyncTask(
-    private val context: Context, private val asyncTaskCallback: AsyncTaskCallback<Nothing>
-) : AsyncTask<Int, Unit, ResponseData<Nothing>>() {
+    private val context: Context, private val asyncTaskCallback: AsyncTaskCallback<Int>
+) : AsyncTask<Int, Unit, ResponseData<Int>>() {
 
     private lateinit var contentValue: ContentValues
 
@@ -18,7 +18,7 @@ class AppealsUpdateAsyncTask(
         contentValue.put("isAllow", 1)
     }
 
-    override fun doInBackground(vararg id: Int?): ResponseData<Nothing> {
+    override fun doInBackground(vararg id: Int?): ResponseData<Int> {
         val dbHelper = DBHelper.getInstance(context)
         return try {
 
@@ -27,7 +27,7 @@ class AppealsUpdateAsyncTask(
                 "Appeals", contentValue, "id= ?", arrayOf(id.sumOf { it!! }.toString())
             )
             db.close()
-            ResponseData(isSuccess = true)
+            ResponseData(isSuccess = true,1)
         } catch (e: SQLException) {
             ResponseData(isSuccess = false, exception = e)
         }
@@ -40,9 +40,9 @@ class AppealsUpdateAsyncTask(
     }
 
 
-    override fun onPostExecute(result: ResponseData<Nothing>) {
+    override fun onPostExecute(result: ResponseData<Int>) {
         if (result.isSuccess) {
-            asyncTaskCallback.onSuccess()
+            asyncTaskCallback.onSuccess(result.data)
         } else {
             asyncTaskCallback.onError(result.exception)
         }

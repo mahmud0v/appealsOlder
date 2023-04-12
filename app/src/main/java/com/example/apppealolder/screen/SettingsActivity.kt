@@ -120,7 +120,6 @@ class SettingsActivity : AppCompatActivity() {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 modeSharedPref.edit().putString(SHARED_KEY, MODE_LIGHT).apply()
-
             }
         }
     }

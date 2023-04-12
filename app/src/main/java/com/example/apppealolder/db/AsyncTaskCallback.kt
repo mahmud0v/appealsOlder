@@ -6,6 +6,6 @@ import java.lang.Exception
 interface AsyncTaskCallback<T> {
 
     fun onSuccess(data: T? = null)
-    fun onError(error:Exception?)
+    fun onError(error: Exception?)
 
 }

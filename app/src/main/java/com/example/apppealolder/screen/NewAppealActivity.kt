@@ -40,7 +40,7 @@ class NewAppealActivity : AppCompatActivity() {
             binding.rvNewsId.layoutManager = LinearLayoutManager(this@NewAppealActivity)
         }
 
-        override fun onError(error: Exception) {
+        override fun onError(error: Exception?) {
             binding.progressBar.unVisible()
             binding.botNavId.showSnackbar(error?.message.toString())
         }

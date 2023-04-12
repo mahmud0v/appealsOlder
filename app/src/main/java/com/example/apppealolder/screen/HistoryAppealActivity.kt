@@ -26,7 +26,7 @@ class HistoryAppealActivity : AppCompatActivity() {
             binding.rvNewsId.layoutManager = LinearLayoutManager(this@HistoryAppealActivity)
         }
 
-        override fun onError(error: Exception) {
+        override fun onError(error: Exception?) {
             binding.progressBar.unVisible()
             binding.toolbarId.showSnackbar(error?.message.toString())
         }
