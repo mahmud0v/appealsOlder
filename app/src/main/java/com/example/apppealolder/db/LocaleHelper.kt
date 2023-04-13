@@ -2,6 +2,9 @@ package com.example.apppealolder.db
 
 import android.content.Context
 import android.content.res.Configuration
+import com.example.apppealolder.model.LabelWord.Companion.ENG
+import com.example.apppealolder.model.LabelWord.Companion.SHARED_KEY
+import com.example.apppealolder.model.LabelWord.Companion.SHARED_LANG
 import java.util.Locale
 
 class LocaleHelper {
@@ -18,13 +21,13 @@ class LocaleHelper {
         }
 
         private fun saveLang(context: Context, lang: String) {
-            val sharedPreferences = context.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-            sharedPreferences.edit().putString("key", lang).apply()
+            val sharedPreferences = context.getSharedPreferences(SHARED_LANG, Context.MODE_PRIVATE)
+            sharedPreferences.edit().putString(SHARED_KEY, lang).apply()
         }
 
         fun savedLang(context: Context): String {
-            val sharedPreferences = context.getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-            return sharedPreferences.getString("key", "en").toString()
+            val sharedPreferences = context.getSharedPreferences(SHARED_LANG, Context.MODE_PRIVATE)
+            return sharedPreferences.getString(SHARED_KEY, ENG).toString()
 
         }
 

@@ -1,6 +1,8 @@
 package com.example.apppealolder.utils
 
+import android.app.Activity
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -15,3 +17,12 @@ fun View.visible() {
 fun View.unVisible() {
     this.visibility = View.GONE
 }
+
+fun Activity.switchOnNight() {
+    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+}
+
+fun Activity.switchOnLight() {
+    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+}
+

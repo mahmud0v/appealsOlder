@@ -13,10 +13,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.db.LocaleHelper
 import com.example.apppealolder.R
 import com.example.apppealolder.databinding.SettingsActivityBinding
+import com.example.apppealolder.db.SharedPreferenceHelper
 import com.example.apppealolder.model.LabelWord.Companion.MODE_LIGHT
 import com.example.apppealolder.model.LabelWord.Companion.MODE_NIGHT
 import com.example.apppealolder.model.LabelWord.Companion.SHARED_KEY
 import com.example.apppealolder.model.LabelWord.Companion.SHARED_MODE
+import com.example.apppealolder.utils.switchOnLight
+import com.example.apppealolder.utils.switchOnNight
 import com.example.apppealolder.utils.unVisible
 import com.example.apppealolder.utils.visible
 
@@ -49,10 +52,20 @@ class SettingsActivity : AppCompatActivity() {
         binding.langLayoutId.setOnClickListener {
             showDialog()
         }
-        switchMode()
-        createModeSharedPref()
-        checkMode()
 
+        binding.switchId.setOnClickListener {
+            if (binding.switchId.isChecked) {
+                switchOnNight()
+                modeSharedPref.edit().putString(SHARED_KEY, MODE_NIGHT).apply()
+            } else {
+                switchOnLight()
+                modeSharedPref.edit().putString(SHARED_KEY, MODE_LIGHT).apply()
+            }
+        }
+
+        modeSharedPref = getSharedPreferences(SHARED_MODE, Context.MODE_PRIVATE)
+        val mode = modeSharedPref.getString(SHARED_KEY, MODE_LIGHT)
+        binding.switchId.isChecked = mode != MODE_LIGHT
 
     }
 
@@ -69,7 +82,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
 
-
     private fun showDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_screen)
@@ -77,8 +89,7 @@ class SettingsActivity : AppCompatActivity() {
         val russian: LinearLayout = dialog.findViewById(R.id.russian)
         val uzbek: LinearLayout = dialog.findViewById(R.id.uzbek)
         val layoutList = arrayListOf(english, russian, uzbek)
-        val checkList =
-            arrayListOf(english.getChildAt(1), russian.getChildAt(1), uzbek.getChildAt(1))
+        val checkList = arrayListOf(english.getChildAt(1), russian.getChildAt(1), uzbek.getChildAt(1))
         val lang = LocaleHelper.savedLang(this)
         checkLang(checkList, lang)
         for (i in layoutList) {
@@ -109,29 +120,9 @@ class SettingsActivity : AppCompatActivity() {
                 view.unVisible()
             }
         }
-
     }
 
-    private fun switchMode() {
-        binding.switchId.setOnClickListener {
-            if (binding.switchId.isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                modeSharedPref.edit().putString(SHARED_KEY, MODE_NIGHT).apply()
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                modeSharedPref.edit().putString(SHARED_KEY, MODE_LIGHT).apply()
-            }
-        }
-    }
 
-    private fun checkMode() {
-        val mode = modeSharedPref.getString(SHARED_KEY, MODE_LIGHT)
-        binding.switchId.isChecked = mode != MODE_LIGHT
-    }
-
-    private fun createModeSharedPref() {
-        modeSharedPref = getSharedPreferences(SHARED_MODE, Context.MODE_PRIVATE)
-    }
 
 
 }

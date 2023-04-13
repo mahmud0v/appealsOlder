@@ -23,7 +23,9 @@ class AppealInfoActivity : AppCompatActivity() {
     private val asyncTaskCallback = object : AsyncTaskCallback<Int> {
 
         override fun onSuccess(data: Int?) {
-            appealData.isAllow = data!!
+            data?.let {
+                appealData.isAllow = it
+            }
         }
 
 

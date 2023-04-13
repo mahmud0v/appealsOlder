@@ -11,6 +11,7 @@ class LabelWord {
         const val ENG = "en"
         const val RU = "ru"
         const val SHARED_MODE = "modeShared"
+        const val SHARED_LANG = "langShared"
         const val SHARED_KEY = "key"
         const val MODE_DEF = "light"
         const val MODE_LIGHT = "light"

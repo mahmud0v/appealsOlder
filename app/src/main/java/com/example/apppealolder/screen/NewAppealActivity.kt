@@ -23,9 +23,7 @@ import com.example.apppealolder.model.LabelWord.Companion.RU
 import com.example.apppealolder.model.LabelWord.Companion.SHARED_KEY
 import com.example.apppealolder.model.LabelWord.Companion.SHARED_MODE
 import com.example.apppealolder.model.LabelWord.Companion.UZ
-import com.example.apppealolder.utils.showSnackbar
-import com.example.apppealolder.utils.unVisible
-import com.example.apppealolder.utils.visible
+import com.example.apppealolder.utils.*
 import java.lang.Exception
 
 class NewAppealActivity : AppCompatActivity() {
@@ -95,9 +93,9 @@ class NewAppealActivity : AppCompatActivity() {
         val modeSharedPref = getSharedPreferences(SHARED_MODE, Context.MODE_PRIVATE)
         val mode = modeSharedPref.getString(SHARED_KEY, MODE_DEF)
         if (mode == MODE_LIGHT) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            switchOnLight()
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            switchOnNight()
         }
 
 
@@ -108,8 +106,6 @@ class NewAppealActivity : AppCompatActivity() {
         startActivity(Intent(this, activity::class.java))
         finish()
     }
-
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
