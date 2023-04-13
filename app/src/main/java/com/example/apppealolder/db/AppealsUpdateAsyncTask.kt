@@ -32,7 +32,6 @@ class AppealsUpdateAsyncTask(
             ResponseData(isSuccess = false, exception = e)
         }
 
-
     }
 
     override fun onProgressUpdate(vararg values: Unit?) {

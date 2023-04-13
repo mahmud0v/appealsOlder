@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.db.LocaleHelper
@@ -42,7 +41,6 @@ class NewAppealActivity : AppCompatActivity() {
             binding.progressBar.unVisible()
             binding.botNavId.showSnackbar(error?.message.toString())
         }
-
 
     }
 
@@ -111,15 +109,14 @@ class NewAppealActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GO_INFO_ACTIVITY && resultCode == RESULT_OK) {
-            val data = data?.getSerializableExtra(APPEAL_INFO) as AppealInfo
-            if (data.isAllow == 1) {
-                data.isAllow = 0
+            val appealData = data?.getSerializableExtra(APPEAL_INFO) as AppealInfo
+            if (appealData.isAllow == 1) {
+                appealData.isAllow = 0
                 val list = adapter.differ.currentList.toMutableList()
-                list.remove(data)
+                list.remove(appealData)
                 adapter.differ.submitList(list)
             }
         }
-
     }
 
 

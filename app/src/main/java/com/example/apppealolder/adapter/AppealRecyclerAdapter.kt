@@ -73,7 +73,15 @@ class AppealRecyclerAdapter : RecyclerView.Adapter<AppealRecyclerAdapter.ViewHol
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(position)
+
+
     }
+
+
+    fun removeItem(position: Int){
+        differ.currentList.toMutableList().removeAt(position)
+    }
+
 
 
 
