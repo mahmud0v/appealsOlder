@@ -8,12 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatDelegate
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.db.LocaleHelper
 import com.example.apppealolder.R
 import com.example.apppealolder.databinding.SettingsActivityBinding
-import com.example.apppealolder.db.SharedPreferenceHelper
 import com.example.apppealolder.model.LabelWord.Companion.MODE_LIGHT
 import com.example.apppealolder.model.LabelWord.Companion.MODE_NIGHT
 import com.example.apppealolder.model.LabelWord.Companion.SHARED_KEY
