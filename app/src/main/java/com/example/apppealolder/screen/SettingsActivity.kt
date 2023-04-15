@@ -33,7 +33,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.botNavId.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.newAppealsScreen -> {
-                    change(NewAppealActivity())
+                    change(NewAppealsActivity())
                     true
                 }
                 R.id.historyAppealsScreen -> {
@@ -76,7 +76,7 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, NewAppealActivity::class.java))
+        startActivity(Intent(this, NewAppealsActivity::class.java))
     }
 
 

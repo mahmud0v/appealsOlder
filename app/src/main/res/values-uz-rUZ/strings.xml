@@ -6,6 +6,7 @@
     <string name="profile_icon_title">Profil</string>
     <string name="phone_number_text">Tel nomer:</string>
     <string name="district_name_text">Tuman nomi:</string>
+    <string name="add_appeal_toolbar">Yangi murojat</string>
     <string name="request_date_text">Murojat sanasi:</string>
     <string name="description_name_text">Murojat ilovasi:</string>
     <string name="allowed_condition_text">Qabul qilinish holati</string>

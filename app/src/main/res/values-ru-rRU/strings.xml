@@ -5,6 +5,7 @@
     <string name="history_appeal_icon_title">История</string>
     <string name="profile_icon_title">Экран профиля</string>
     <string name="phone_number_text">Номер телефона:</string>
+    <string name="add_appeal_toolbar">Новые приложения</string>
     <string name="district_name_text">Название района:</string>
     <string name="request_date_text">Дата заказа:</string>
     <string name="description_name_text">Описание:</string>

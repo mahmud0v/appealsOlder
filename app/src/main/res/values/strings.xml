@@ -3,6 +3,7 @@
     <string name="new_appeal_icon_title">New Appeals</string>
     <string name="history_appeal_icon_title">History Appeals</string>
     <string name="profile_icon_title">Profile Screen</string>
+    <string name="add_appeal_toolbar">Add Appeal Screen</string>
     <string name="phone_number_text">Phone number:</string>
     <string name="district_name_text">District name:</string>
     <string name="request_date_text">Request date:</string>

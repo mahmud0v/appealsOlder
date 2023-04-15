@@ -26,6 +26,10 @@ class AppealInfoActivity : AppCompatActivity() {
             data?.let {
                 appealData.isAllow = it
             }
+            binding.allowedTextId.text = isAllowText(appealData.isAllow)
+            binding.allowBtn.unVisible()
+
+
         }
 
 
@@ -50,8 +54,6 @@ class AppealInfoActivity : AppCompatActivity() {
         binding.allowBtn.setOnClickListener {
             val myAsyncTask = AppealsUpdateAsyncTask(this, asyncTaskCallback)
             myAsyncTask.execute(appealData.id)
-            binding.allowedTextId.text = isAllowText(1)
-            binding.allowBtn.unVisible()
         }
 
         loadData()
@@ -66,6 +68,7 @@ class AppealInfoActivity : AppCompatActivity() {
         binding.requestDate.text = appealData.request_data
         binding.descId.text = appealData.description
         binding.allowedTextId.text = isAllowText(appealData.isAllow)
+
     }
 
     private fun isAllowText(value: Int): String {

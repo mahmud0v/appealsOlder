@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.apppealolder.db.LocaleHelper
 import com.example.apppealolder.R
@@ -25,16 +26,15 @@ import com.example.apppealolder.model.LabelWord.Companion.UZ
 import com.example.apppealolder.utils.*
 import java.lang.Exception
 
-class NewAppealActivity : AppCompatActivity() {
+class NewAppealsActivity : AppCompatActivity() {
     private val binding: NewAppealActivityBinding by viewBinding()
-    private lateinit var adapter: AppealRecyclerAdapter
+    private lateinit var newAppealsAdapter: AppealRecyclerAdapter
     private val asyncTaskCallback = object : AsyncTaskCallback<ArrayList<AppealInfo>> {
 
         override fun onSuccess(data: ArrayList<AppealInfo>?) {
             binding.progressBar.unVisible()
-            adapter.differ.submitList(data)
-            binding.rvNewsId.adapter = adapter
-            binding.rvNewsId.layoutManager = LinearLayoutManager(this@NewAppealActivity)
+            newAppealsAdapter.differ.submitList(data)
+
         }
 
         override fun onError(error: Exception?) {
@@ -48,15 +48,20 @@ class NewAppealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.new_appeal_activity)
         binding.progressBar.visible()
-        adapter = AppealRecyclerAdapter()
+        newAppealsAdapter = AppealRecyclerAdapter()
         val readCursorAsyncTask = ReadNewAppealAsyncTask(this, asyncTaskCallback)
         readCursorAsyncTask.execute()
 
-        adapter.onItemClick = {
-            val intent = Intent(this@NewAppealActivity, AppealInfoActivity::class.java)
+        binding.rvNewsId.adapter = newAppealsAdapter
+        binding.rvNewsId.layoutManager = LinearLayoutManager(this@NewAppealsActivity)
+
+        newAppealsAdapter.onItemClick = {
+            val intent = Intent(this@NewAppealsActivity, AppealInfoActivity::class.java)
             intent.putExtra(APPEAL_INFO, it)
             startActivityForResult(intent, GO_INFO_ACTIVITY)
         }
+
+
 
         binding.botNavId.selectedItemId = R.id.newAppealsScreen
         binding.botNavId.setOnItemSelectedListener {
@@ -97,6 +102,10 @@ class NewAppealActivity : AppCompatActivity() {
         }
 
 
+        binding.addBtn.setOnClickListener {
+            change(AddAppealActivity())
+        }
+
     }
 
 
@@ -112,9 +121,9 @@ class NewAppealActivity : AppCompatActivity() {
             val appealData = data?.getSerializableExtra(APPEAL_INFO) as AppealInfo
             if (appealData.isAllow == 1) {
                 appealData.isAllow = 0
-                val list = adapter.differ.currentList.toMutableList()
+                val list = newAppealsAdapter.differ.currentList.toMutableList()
                 list.remove(appealData)
-                adapter.differ.submitList(list)
+                newAppealsAdapter.differ.submitList(list)
             }
         }
     }

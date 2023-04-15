@@ -5,55 +5,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/item_back_color"
-    android:weightSum="15"
     android:orientation="vertical"
-    tools:context=".screen.NewAppealActivity">
+    android:weightSum="15"
+    tools:context=".screen.NewAppealsActivity">
 
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_id"
         android:layout_width="match_parent"
-        android:background="@color/blue_light"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue_light">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/new_appeal_icon_title"
-            android:textSize="25sp"
             android:textColor="@color/white"
-            />
+            android:textSize="25sp" />
 
 
     </androidx.appcompat.widget.Toolbar>
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_news_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
-        android:layout_marginBottom="60dp"
-        android:id="@+id/rv_news_id"
-        />
-
-
+        android:layout_marginBottom="60dp" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bot_nav_id"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_weight="1"
         android:layout_gravity="bottom"
-        android:id="@+id/bot_nav_id"
-        app:menu="@menu/bottom_menu"
-        />
+        app:menu="@menu/bottom_menu" />
 
     <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/progress_bar"
+        android:layout_gravity="center" />
+
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/plus_back"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="80dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginEnd="30dp"
+        android:id="@+id/add_btn"
+        android:clickable="true"
+        android:focusable="true"
         />
+
 
 </FrameLayout>

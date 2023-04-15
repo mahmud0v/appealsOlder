@@ -17,13 +17,12 @@ import java.lang.Exception
 
 class HistoryAppealActivity : AppCompatActivity() {
     private val binding: HistoryAppealActivityBinding by viewBinding()
-    private lateinit var adapter: AppealRecyclerAdapter
+    private lateinit var historyAppealsAdapter: AppealRecyclerAdapter
     private val asyncTaskCallback = object : AsyncTaskCallback<ArrayList<AppealInfo>> {
         override fun onSuccess(data: ArrayList<AppealInfo>?) {
             binding.progressBar.unVisible()
-            adapter.differ.submitList(data)
-            binding.rvNewsId.adapter = adapter
-            binding.rvNewsId.layoutManager = LinearLayoutManager(this@HistoryAppealActivity)
+            historyAppealsAdapter.differ.submitList(data)
+
         }
 
         override fun onError(error: Exception?) {
@@ -36,13 +35,15 @@ class HistoryAppealActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.history_appeal_activity)
-        adapter = AppealRecyclerAdapter()
+        historyAppealsAdapter = AppealRecyclerAdapter()
         binding.progressBar.visible()
         binding.botNavId.selectedItemId = R.id.historyAppealsScreen
+        binding.rvNewsId.adapter = historyAppealsAdapter
+        binding.rvNewsId.layoutManager = LinearLayoutManager(this@HistoryAppealActivity)
         binding.botNavId.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.newAppealsScreen -> {
-                    change(NewAppealActivity())
+                    change(NewAppealsActivity())
                     true
                 }
                 R.id.profileScreen -> {
@@ -59,7 +60,7 @@ class HistoryAppealActivity : AppCompatActivity() {
 
         val readCursorAsyncTask = ReadHistoryAppealAsyncTask(this, asyncTaskCallback)
         readCursorAsyncTask.execute()
-        adapter.onItemClick = {
+        historyAppealsAdapter.onItemClick = {
             val intent = Intent(this, AppealInfoActivity::class.java)
             intent.putExtra(APPEAL_INFO, it)
             startActivity(intent)
@@ -76,7 +77,7 @@ class HistoryAppealActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, NewAppealActivity::class.java))
+        startActivity(Intent(this, NewAppealsActivity::class.java))
     }
 
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ApppealOlder"
         tools:targetApi="31">
         <activity
+            android:name=".screen.AddAppealActivity"
+            android:exported="false" />
+        <activity
             android:name=".screen.AppealInfoActivity"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
             android:name=".screen.HistoryAppealActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.NewAppealActivity"
+            android:name=".screen.NewAppealsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
