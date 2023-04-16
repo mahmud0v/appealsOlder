@@ -25,4 +25,5 @@
     <string name="russian_text">Русский</string>
     <string name="uzbek_text">Узбекский</string>
     <string name="snacbar_text">Заявка принята!</string>
+    <string name="add">Добавить</string>
 </resources>

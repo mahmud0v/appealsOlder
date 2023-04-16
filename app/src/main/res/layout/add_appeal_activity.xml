@@ -38,6 +38,7 @@
         android:textStyle="bold" />
 
     <com.vicmikhailau.maskededittext.MaskedEditText
+        android:id="@+id/phone_edit_text"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="35dp"
@@ -48,7 +49,7 @@
         android:imeOptions="actionNext"
         android:inputType="phone"
         android:paddingStart="10dp"
-        app:mask="(###) ## ### ## ##" />
+        app:mask="(+###) ## ### ## ##" />
 
 
     <TextView
@@ -66,16 +67,17 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/district_edit_text"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="35dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
-        android:paddingStart="10dp"
         android:background="@drawable/edit_text_back"
         android:fontFamily="@font/poppins_regular"
         android:imeOptions="actionNext"
-        android:inputType="text" />
+        android:inputType="text"
+        android:paddingStart="10dp" />
 
     <TextView
         android:id="@+id/request_date_id"
@@ -91,6 +93,7 @@
 
 
     <com.vicmikhailau.maskededittext.MaskedEditText
+        android:id="@+id/request_edit_text"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="35dp"
@@ -103,8 +106,7 @@
         android:inputType="number"
         android:paddingStart="10dp"
         android:textSize="15sp"
-        app:mask="##/##/####"
-        />
+        app:mask="##/##/####" />
 
     <TextView
         android:id="@+id/desc_text"
@@ -121,25 +123,33 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/desc_edit_text"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginStart="35dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
-        android:maxLines="7"
-        android:paddingEnd="10dp"
-        android:gravity="top|start"
-        android:scrollbars="vertical"
-        android:paddingStart="10dp"
         android:background="@drawable/edit_text_back"
         android:fontFamily="@font/poppins_regular"
+        android:gravity="top|start"
         android:imeOptions="actionNext"
         android:inputType="textMultiLine"
-        />
+        android:maxLines="7"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:scrollbars="vertical" />
 
 
-
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_btn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/add_disable"
+        android:text="@string/add"
+        android:textColor="@color/item_back_color"
+        android:textSize="18sp" />
 
 
 </LinearLayout>

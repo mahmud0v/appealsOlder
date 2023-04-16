@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.snackbar.Snackbar
 
 
-fun View.showSnackbar(errorMessage: String) {
-    Snackbar.make(this, errorMessage, Snackbar.LENGTH_SHORT).show()
+fun View.showSnackbar(message: String) {
+    Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
 }
 
 fun View.visible() {
@@ -26,3 +26,10 @@ fun Activity.switchOnLight() {
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 }
 
+fun View.clickable() {
+    this.isClickable = true
+}
+
+fun View.disable() {
+    this.isClickable = false
+}

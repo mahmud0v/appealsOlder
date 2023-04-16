@@ -25,5 +25,6 @@
     <string name="russian_text">Rus</string>
     <string name="uzbek_text">O\'zbek</string>
     <string name="snacbar_text">Murojat qabul qilingan!</string>
+    <string name="add">Qo\'shish</string>
 
 </resources>
