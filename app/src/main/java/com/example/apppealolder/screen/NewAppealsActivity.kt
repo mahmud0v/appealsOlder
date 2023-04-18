@@ -14,8 +14,10 @@ import com.example.apppealolder.databinding.NewAppealActivityBinding
 import com.example.apppealolder.db.AsyncTaskCallback
 import com.example.apppealolder.db.ReadNewAppealAsyncTask
 import com.example.apppealolder.model.AppealInfo
+import com.example.apppealolder.model.LabelWord.Companion.ADD_APPEAL
 import com.example.apppealolder.model.LabelWord.Companion.APPEAL_INFO
 import com.example.apppealolder.model.LabelWord.Companion.ENG
+import com.example.apppealolder.model.LabelWord.Companion.GO_ADD_ACTIVITY
 import com.example.apppealolder.model.LabelWord.Companion.GO_INFO_ACTIVITY
 import com.example.apppealolder.model.LabelWord.Companion.MODE_DEF
 import com.example.apppealolder.model.LabelWord.Companion.MODE_LIGHT
@@ -70,6 +72,7 @@ class NewAppealsActivity : AppCompatActivity() {
                     change(SettingsActivity())
                     true
                 }
+
                 R.id.historyAppealsScreen -> {
                     change(HistoryAppealActivity())
                     true
@@ -85,9 +88,11 @@ class NewAppealsActivity : AppCompatActivity() {
             ENG -> {
                 LocaleHelper.changeLanguage(ENG, this)
             }
+
             RU -> {
                 LocaleHelper.changeLanguage(RU, this)
             }
+
             else -> {
                 LocaleHelper.changeLanguage(UZ, this)
             }
@@ -103,7 +108,8 @@ class NewAppealsActivity : AppCompatActivity() {
 
 
         binding.addBtn.setOnClickListener {
-            change(AddAppealActivity())
+            val intent = Intent(this, AddAppealActivity::class.java)
+            startActivityForResult(intent, GO_ADD_ACTIVITY)
         }
 
     }
@@ -125,6 +131,11 @@ class NewAppealsActivity : AppCompatActivity() {
                 list.remove(appealData)
                 newAppealsAdapter.differ.submitList(list)
             }
+        } else if (requestCode == GO_ADD_ACTIVITY && resultCode == RESULT_OK) {
+            val appealData = data?.getSerializableExtra(ADD_APPEAL) as AppealInfo
+            val list = newAppealsAdapter.differ.currentList.toMutableList()
+            list.add(appealData)
+            newAppealsAdapter.differ.submitList(list)
         }
     }
 

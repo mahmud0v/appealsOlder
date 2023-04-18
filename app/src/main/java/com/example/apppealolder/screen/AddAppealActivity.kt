@@ -1,6 +1,7 @@
 package com.example.apppealolder.screen
 
 import android.content.ContentValues
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.addTextChangedListener
@@ -9,16 +10,25 @@ import com.example.apppealolder.R
 import com.example.apppealolder.databinding.AddAppealActivityBinding
 import com.example.apppealolder.db.AsyncTaskCallback
 import com.example.apppealolder.db.InsertAppealAsyncTask
+import com.example.apppealolder.model.AppealInfo
+import com.example.apppealolder.model.LabelWord.Companion.ADD_APPEAL
+import com.example.apppealolder.model.LabelWord.Companion.SUCCESS_MESSAGE
 import com.example.apppealolder.utils.clickable
 import com.example.apppealolder.utils.disable
 import com.example.apppealolder.utils.showSnackbar
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class AddAppealActivity : AppCompatActivity() {
     private val binding: AddAppealActivityBinding by viewBinding()
-    private val asyncTaskCallback = object : AsyncTaskCallback<Nothing> {
-        override fun onSuccess(data: Nothing?) {
-            binding.addBtn.showSnackbar("Inserted successfully")
+    private val asyncTaskCallback = object : AsyncTaskCallback<AppealInfo> {
+        override fun onSuccess(data: AppealInfo?) {
+            binding.addBtn.showSnackbar(SUCCESS_MESSAGE)
+            val intent = Intent()
+            intent.putExtra(ADD_APPEAL, data)
+            setResult(RESULT_OK, intent)
+            finish()
         }
 
         override fun onError(error: Exception?) {
@@ -32,6 +42,11 @@ class AddAppealActivity : AppCompatActivity() {
         setContentView(R.layout.add_appeal_activity)
 
 
+        val data = SimpleDateFormat("dd/M/yyyy")
+        val currentData = data.format(Date())
+
+        binding.addBtn.showSnackbar(currentData)
+
         binding.descEditText.addTextChangedListener {
             manageButtonClickable()
         }
@@ -44,10 +59,6 @@ class AddAppealActivity : AppCompatActivity() {
             manageButtonClickable()
         }
 
-        binding.requestEditText.addTextChangedListener {
-            manageButtonClickable()
-        }
-
 
     }
 
@@ -55,16 +66,16 @@ class AddAppealActivity : AppCompatActivity() {
     private fun getAllInputText(): Boolean {
         val phoneNumber = "+" + binding.phoneEditText.unMaskedText.toString()
         val district = binding.districtEditText.text.toString()
-        val requestData = binding.requestEditText.unMaskedText.toString()
         val description = binding.descEditText.text.toString()
         val isAllow = 0
         return (phoneNumber.length == 13 && phoneNumber.substring(0, 4) == "+998"
-                && district.isNotBlank() && requestData.length == 8 && description.isNotBlank())
+                && district.isNotBlank() && description.isNotBlank())
 
     }
 
     private fun manageButtonClickable() {
-
+        val data = SimpleDateFormat("dd/M/yyyy")
+        val requestData = data.format(Date())
         if (getAllInputText()) {
             binding.addBtn.clickable()
             binding.addBtn.setBackgroundResource(R.drawable.add_back)
@@ -73,7 +84,7 @@ class AddAppealActivity : AppCompatActivity() {
                 contentValue.apply {
                     put("phone_number", ("+" + binding.phoneEditText.unMaskedText.toString()))
                     put("district", binding.districtEditText.text.toString())
-                    put("request_data", binding.requestEditText.text.toString())
+                    put("request_data", requestData)
                     put("description", binding.descEditText.text.toString())
                     put("isAllow", 0)
                 }
@@ -86,7 +97,6 @@ class AddAppealActivity : AppCompatActivity() {
             binding.addBtn.setBackgroundResource(R.drawable.add_disable)
 
         }
-
 
     }
 

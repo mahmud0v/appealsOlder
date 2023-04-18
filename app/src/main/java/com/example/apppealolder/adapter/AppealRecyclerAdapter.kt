@@ -53,12 +53,19 @@ class AppealRecyclerAdapter : RecyclerView.Adapter<AppealRecyclerAdapter.ViewHol
         }
 
         private fun trimDescription(string: String): String {
-            return string.substring(0, 16).plus("...")
+            if (string.length >= 16) {
+                return string.substring(0, 16).plus("...")
+            }
+            return string
+
 
         }
 
         private fun trimDistrict(string: String): String {
-            return string.substring(0, 14).plus("...")
+            if (string.length >= 14) {
+                return string.substring(0, 14).plus("...")
+            }
+            return string
         }
 
     }
@@ -76,12 +83,6 @@ class AppealRecyclerAdapter : RecyclerView.Adapter<AppealRecyclerAdapter.ViewHol
 
 
     }
-
-
-    fun removeItem(position: Int){
-        differ.currentList.toMutableList().removeAt(position)
-    }
-
 
 
 

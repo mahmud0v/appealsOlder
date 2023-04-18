@@ -16,6 +16,9 @@ class LabelWord {
         const val MODE_DEF = "light"
         const val MODE_LIGHT = "light"
         const val MODE_NIGHT = "night"
+        const val ADD_APPEAL = "AddAppeal"
+        const val SUCCESS_MESSAGE = "Insert successfully!"
+        const val GO_ADD_ACTIVITY = 2
 
     }
 }
