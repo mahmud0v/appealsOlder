@@ -107,7 +107,7 @@
         android:background="@drawable/edit_text_back"
         android:fontFamily="@font/poppins_regular"
         android:gravity="top|start"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
         android:inputType="textMultiLine"
         android:maxLines="7"
         android:paddingStart="10dp"
@@ -117,10 +117,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_btn"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/add_disable"
         android:text="@string/add"
         android:textColor="@color/item_back_color"

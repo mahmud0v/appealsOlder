@@ -12,6 +12,7 @@ import com.example.apppealolder.db.AsyncTaskCallback
 import com.example.apppealolder.db.InsertAppealAsyncTask
 import com.example.apppealolder.model.AppealInfo
 import com.example.apppealolder.model.LabelWord.Companion.ADD_APPEAL
+import com.example.apppealolder.model.LabelWord.Companion.PHONE_CODE
 import com.example.apppealolder.model.LabelWord.Companion.SUCCESS_MESSAGE
 import com.example.apppealolder.utils.clickable
 import com.example.apppealolder.utils.disable
@@ -41,12 +42,7 @@ class AddAppealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_appeal_activity)
 
-
-        val data = SimpleDateFormat("dd/M/yyyy")
-        val currentData = data.format(Date())
-
-        binding.addBtn.showSnackbar(currentData)
-
+        
         binding.descEditText.addTextChangedListener {
             manageButtonClickable()
         }
@@ -67,8 +63,7 @@ class AddAppealActivity : AppCompatActivity() {
         val phoneNumber = "+" + binding.phoneEditText.unMaskedText.toString()
         val district = binding.districtEditText.text.toString()
         val description = binding.descEditText.text.toString()
-        val isAllow = 0
-        return (phoneNumber.length == 13 && phoneNumber.substring(0, 4) == "+998"
+        return (phoneNumber.length == 13 && phoneNumber.substring(0, 4) == PHONE_CODE
                 && district.isNotBlank() && description.isNotBlank())
 
     }

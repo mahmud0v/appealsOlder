@@ -20,5 +20,6 @@ class LabelWord {
         const val SUCCESS_MESSAGE = "Insert successfully!"
         const val GO_ADD_ACTIVITY = 2
 
+        const val PHONE_CODE = "+998"
     }
 }
