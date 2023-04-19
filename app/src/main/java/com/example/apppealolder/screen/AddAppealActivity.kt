@@ -42,7 +42,7 @@ class AddAppealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_appeal_activity)
 
-        
+
         binding.descEditText.addTextChangedListener {
             manageButtonClickable()
         }
@@ -60,7 +60,7 @@ class AddAppealActivity : AppCompatActivity() {
 
 
     private fun getAllInputText(): Boolean {
-        val phoneNumber = "+" + binding.phoneEditText.unMaskedText.toString()
+        val phoneNumber =binding.phoneEditText.text.toString()
         val district = binding.districtEditText.text.toString()
         val description = binding.descEditText.text.toString()
         return (phoneNumber.length == 13 && phoneNumber.substring(0, 4) == PHONE_CODE
@@ -77,7 +77,7 @@ class AddAppealActivity : AppCompatActivity() {
             binding.addBtn.setOnClickListener {
                 val contentValue = ContentValues()
                 contentValue.apply {
-                    put("phone_number", ("+" + binding.phoneEditText.unMaskedText.toString()))
+                    put("phone_number", binding.phoneEditText.text.toString())
                     put("district", binding.districtEditText.text.toString())
                     put("request_data", requestData)
                     put("description", binding.descEditText.text.toString())
